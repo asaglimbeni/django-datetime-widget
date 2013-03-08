@@ -8,52 +8,53 @@ django-datetime-widget
 
 Requirements
 ------------
-* [Bootstrap](http://twitter.github.com/bootstrap/) 2.0.4+
-* [jQuery](http://jquery.com/) 1.7.1+
+* `Bootstrap<http://twitter.github.com/bootstrap/>`_ 2.0.4+
+* `jQuery<http://jquery.com/>`_ 1.7.1+
 
-# Screenshots
+Screenshots
+===========
 
-## Decade year view
+* Decade year view
 
-![Datetimepicker decade year view](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_decade.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_decade.png
 
 This view allows to select the day in the selected month.
 
-## Year view
+* Year view
 
-![Datetimepicker year view](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_year.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_year.png
 
 This view allows to select the month in the selected year.
 
-## Month view
+* Month view
 
-![Datetimepicker month view](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_month.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_month.png
 
 This view allows to select the year in a range of 10 years.
 
-## Day view
+* Day view
 
-![Datetimepicker day view](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_day.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_day.png
 
 This view allows to select the hour in the selected day.
 
-## Hour view
+* Hour view
 
-![Datetimepicker hour view](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_hour.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_hour.png
 
 This view allows to select the preset of minutes in the selected hour.
 The range of 5 minutes (by default) has been selected to restrict buttons quantity to an acceptable value, but it can be overrided by the <code>minuteStep</code> property.
 
-## Day view - meridian
+* Day view - meridian
 
-![Datetimepicker day view meridian](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_day_meridian.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_day_meridian.png
 
 Meridian is supported in both the day and hour views.
 To use it, just enable the <code>showMeridian</code> property.
 
-## Hour view - meridian
+* Hour view - meridian
 
-![Datetimepicker hour view meridian](https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_hour_meridian.png)
+.. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_hour_meridian.png
 
 
 Installation
@@ -104,23 +105,15 @@ Basic Configuration
             'datetime': DateTimeWidget(options = dateTimeOptions)
             }
 
-## Options
+Options
+=======
 
-### format
+* format
+
 
 String.  Default: 'dd/mm/yyyy hh:ii'
 
-The date format, combination of  P, hh, ii, ss, dd, mm, yy, yyyy.
-
-    'P' : '%p',
-    'ss' : '%S',
-    'ii' : '%M',
-    'hh' : '%H',
-    'HH' :  '%I',
-    'dd' : '%d',
-    'mm' : '%m',
-    'yy' : '%y',
-    'yyyy' : '%Y',
+The date format, combination of  P, hh, HH , ii, ss, dd, yy, yyyy.
 
  * P : meridian in upper case ('AM' or 'PM') - according to locale file
  * ss : seconds, 2 digits with leading zeros
@@ -128,42 +121,40 @@ The date format, combination of  P, hh, ii, ss, dd, mm, yy, yyyy.
  * hh : hour, 2 digits with leading zeros - 24-hour format
  * HH : hour, 2 digits with leading zeros - 12-hour format
  * dd : day of the month, 2 digits with leading zeros
- * mm : numeric representation of the month, 2 digits with leading zeros
- * MM : full textual representation of a month, such as January or March
  * yy : two digit representation of a year
  * yyyy : full numeric representation of a year, 4 digits
 
-### weekStart
+* weekStart
 
 String.  Default: '0'
 
 Day of the week start. '0' (Sunday) to '6' (Saturday)
 
-### startDate
+* startDate
 
 Date.  Default: Beginning of time
 
 The earliest date that may be selected; all earlier dates will be disabled.
 
-### endDate
+* endDate
 
 Date.  Default: End of time
 
 The latest date that may be selected; all later dates will be disabled.
 
-### daysOfWeekDisabled
+* daysOfWeekDisabled
 
 String.  Default:  '[]'
 
 Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends:  '[0,6]'.
 
-### autoclose
+* autoclose
 
 String.  Default: 'false'
 
 Whether or not to close the datetimepicker immediately when a date is selected.
 
-### startView
+* startView
 
 String.  Default: '2'
 
@@ -175,43 +166,43 @@ Accepts values of :
  * '3'  for the 12-month overview
  * '4'  for the 10-year overview. Useful for date-of-birth datetimepickers.
 
-### minView
+* minView
 
 String. Default: '0'
 
 The lowest view that the datetimepicker should show.
 
-### maxView
+* maxView
 
 String. Default: '4'
 
 The highest view that the datetimepicker should show.
 
-### todayBtn
+* todayBtn
 
 String.  Default: 'false'
 
 If true , displays a "Today" button at the bottom of the datetimepicker to select the current date.  If true, the "Today" button will only move the current date into view.
 
-### todayHighlight
+* todayHighlight
 
 String.  Default: 'false'
 
 If true, highlights the current date.
 
-### minuteStep
+* minuteStep
 
 String.  Default: '5'
 
 The increment used to build the hour view. A button is created for each <code>minuteStep</code> minutes.
 
-### pickerPosition
+* pickerPosition
 
 String. Default: 'bottom-right' (other supported value : 'bottom-left')
 
 This option allows to place the picker just under the input field for the component implementation instead of the default position which is at the bottom right of the button.
 
-### showMeridian
+* showMeridian
 
 String. Default: 'false'
 
