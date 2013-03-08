@@ -3,7 +3,7 @@ __author__ = 'Alfredo Saglimbeni'
 from distutils.core import setup
 from setuptools import setup, find_packages
 
-setup(name = "clean-image-crop-uploader",
+setup(name = "django-datetime-widget",
     version = "0.5",
     description = "Django-datetime-widget is a simple and clean widget for DateTimeField. It's based on bootstrap-datepicker by Stefan Petre",
     long_description=open('README.rst').read(),
