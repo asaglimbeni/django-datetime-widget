@@ -8,8 +8,8 @@ django-datetime-widget
 
 Requirements
 ------------
-* `Bootstrap<http://twitter.github.com/bootstrap/>`_ 2.0.4+
-* `jQuery<http://jquery.com/>`_ 1.7.1+
+* `Bootstrap  <http://twitter.github.com/bootstrap/>`_ 2.0.4+
+* `jQuery <http://jquery.com/>`_ 1.7.1+
 
 Screenshots
 ===========
