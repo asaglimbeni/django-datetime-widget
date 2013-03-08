@@ -1,0 +1,25 @@
+__author__ = 'Alfredo Saglimbeni'
+
+from distutils.core import setup
+from setuptools import setup, find_packages
+
+setup(name = "clean-image-crop-uploader",
+    version = "0.5",
+    description = "Django-datetime-widget is a simple and clean widget for DateTimeField. It's based on bootstrap-datepicker by Stefan Petre",
+    long_description=open('README.rst').read(),
+    author = "Alfredo Saglimbeni",
+    author_email = "alfredo.saglimbeni@gmail.com",
+    url = "",
+    packages = find_packages(),
+    include_package_data=False,
+    install_requires = [],
+    classifiers = [
+        'Development Status :: 4 - Beta',
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        ],
+)
