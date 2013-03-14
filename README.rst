@@ -1,7 +1,7 @@
 django-datetime-widget
 ======================
 
-``django-datetime-widget`` is clean and easy to configure widget for DateTimeFiled. It based on the famous javascript library  `bootstrap-datetimepicker
+``django-datetime-widget`` is clean and easy to configure widget for DateTimeField. It based on the famous javascript library  `bootstrap-datetimepicker
 <https://github.com/smalot/bootstrap-datetimepicker>`_.
 
 ``django-datetime-widget`` is perfect when you use an DateTimeFiled on your model where is necessary to have a specific date time format with a clean input.
@@ -68,7 +68,7 @@ Installation
 
 Basic Configuration
 -------------------
-#. Create your model-form and set  DateTimeWidget widget to your DateTimeFiled  ::
+#. Create your model-form and set  DateTimeWidget widget to your DateTimeField  ::
 
     from datetimewidget.widgets import DateTimeWidget
 
@@ -210,8 +210,9 @@ This option will enable meridian views for day and hour views.
 
 TODO
 ----
-#. widget for TimeFiled
-#. widget for DateFiled
+#. widget for TimeField
+#. widget for DateField
+#. widget for DateTime range. 
 #. provide the short/full textual representation of a month with internationalization.
 #. some more controlls in tranlation of bootstrap-datetime format to python-datetime format.
 
