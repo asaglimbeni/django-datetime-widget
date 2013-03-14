@@ -4,7 +4,7 @@ django-datetime-widget
 ``django-datetime-widget`` is clean and easy to configure widget for DateTimeField. It based on the famous javascript library  `bootstrap-datetimepicker
 <https://github.com/smalot/bootstrap-datetimepicker>`_.
 
-``django-datetime-widget`` is perfect when you use an DateTimeFiled on your model where is necessary to have a specific date time format with a clean input.
+``django-datetime-widget`` is perfect when you use an DateTimeField on your model where is necessary to have a specific date time format with a clean input.
 
 Requirements
 ------------
