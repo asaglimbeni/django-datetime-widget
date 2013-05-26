@@ -1,6 +1,4 @@
 include LICENSE.txt
 include README.rst
 include MANIFEST.in
-recursive-include datetimewidget *.py *.txt *.rst *.js *.css
-recursive-include datetimewidget/static *.py *.txt *.js *.css
-recursive-include datetimewidget/locale *.py *.txt *.js *.css *.po *.mo
+recursive-include datetimewidget *.py *.html *.js *.css *.po *.mo *.txt

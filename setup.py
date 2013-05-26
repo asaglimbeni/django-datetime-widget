@@ -4,15 +4,15 @@ from distutils.core import setup
 from setuptools import setup, find_packages
 
 setup(name = "django-datetime-widget",
-    version = "0.5",
+    version = "0.5.2",
     description = "Django-datetime-widget is a simple and clean widget for DateTimeField. It's based on bootstrap-datepicker by Stefan Petre",
     long_description=open('README.rst').read(),
     author = "Alfredo Saglimbeni",
     author_email = "alfredo.saglimbeni@gmail.com",
     url = "",
     packages = find_packages(),
-    include_package_data=False,
-    install_requires = [],
+    include_package_data=True,
+    install_requires = ['django',],
     classifiers = [
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
@@ -22,4 +22,5 @@ setup(name = "django-datetime-widget",
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
+    zip_safe=False,
 )
