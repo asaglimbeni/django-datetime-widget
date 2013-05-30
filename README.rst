@@ -76,7 +76,7 @@ Basic Configuration
         class Meta:
             model = yourModel
             widgets = {
-                'datetime': DateTimeWidget()
+                'datetime': DateTimeWidget(attrs={'id':"yourdatetimeid"})
             }
 
 #. Download `twitter bootstrap <http://twitter.github.com/bootstrap/>`_  to your static file folder.

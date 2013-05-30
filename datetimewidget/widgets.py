@@ -84,14 +84,15 @@ class DateTimeWidget(MultiWidget):
 
     def value_from_datadict(self, data, files, name):
         date_time = [
-        widget.value_from_datadict(data, files, name + '_%s' % i)
-        for i, widget in enumerate(self.widgets)]
+                     widget.value_from_datadict(data, files, name + '_%s' % i)
+                     for i, widget in enumerate(self.widgets)
+                    ]
         try:
-            D  = to_current_timezone(datetime.strptime(date_time[0], self.format))
+            D = to_current_timezone(datetime.strptime(date_time[0], self.format))
         except ValueError:
             return ''
         else:
-            return str(D)
+            return D
 
     def decompress(self, value):
         if value:
@@ -113,10 +114,10 @@ class DateTimeWidget(MultiWidget):
         WEEKDAYS_MIN = [_("Su"), _("Mo"), _("Tu"), _("We"), _("Th"), _("Fr"), _("Sa"), _("Su")]
         MONTHS = [_("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")]
         MONTHS_ABBR = [_("Jan"), _("Feb"), _("Mar"), _("Apr"), _("May"), _("Jun"), _("Jul"), _("Aug"), _("Sep"), _("Oct"), _("Nov"), _("Dec")]
-        MERDIEM = [_("am"), _("pm")]
+        MERIDIEN = [_("am"), _("pm")]
         SUFFIX = [_("st"), _("nd"), _("rd"), _("th")]
-        TODAY = "'%s'"%_("Today")
-        js_i18n = I18N % (WEEKDAYS,WEEKDAYS_ABBR, WEEKDAYS_MIN, MONTHS, MONTHS_ABBR, MERDIEM, SUFFIX, TODAY)
+        TODAY = '"%s"' % _("Today")
+        js_i18n = I18N % (WEEKDAYS,WEEKDAYS_ABBR, WEEKDAYS_MIN, MONTHS, MONTHS_ABBR, MERIDIEN, SUFFIX, TODAY)
         options = self.option+(translation.get_language(),)
         js_options = datetimepicker_options % options
         id = uuid.uuid4().hex
