@@ -53,7 +53,7 @@ dateConversion = {
 }
 class DateTimeWidget(MultiWidget):
 
-    def __init__(self, attrs=None, options = {}):
+    def __init__(self, attrs=None, options = {}, clearBtn = False):
         if attrs is None:
             attrs = {'readonly':''}
 
@@ -72,6 +72,7 @@ class DateTimeWidget(MultiWidget):
         self.option += (options.get('minuteStep','5'),)
         self.option += (options.get('pickerPosition','bottom-right'),)
         self.option += (options.get('showMeridian','false'),)
+        self.clear = clearBtn
 
         pattern = re.compile(r'\b(' + '|'.join(dateConversion.keys()) + r')\b')
         self.dataTimeFormat = self.option[0]
@@ -120,13 +121,16 @@ class DateTimeWidget(MultiWidget):
         options = self.option+(translation.get_language(),)
         js_options = datetimepicker_options % options
         id = uuid.uuid4().hex
+        clear_code = ""
+        if self.clear:
+            clear_code = '<span class="add-on"><i class="icon-remove"></i></span>'
         return '<div id="%s"  class="input-append date form_datetime">'\
-               '%s'\
+               '%s%s'\
                '<span class="add-on"><i class="icon-th"></i></span>'\
                '</div>'\
                '<script type="text/javascript">'\
                '%s$("#%s").datetimepicker({%s});'\
-               '</script>  ' % ( id, rendered_widgets[0], js_i18n.replace(', u\'',', \'').replace('[u', '['), id , js_options)
+               '</script>  ' % ( id, rendered_widgets[0], clear_code, js_i18n.replace(', u\'',', \'').replace('[u', '['), id , js_options)
 
 
     class Media:
