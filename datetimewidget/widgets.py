@@ -1,3 +1,5 @@
+from django.forms import forms, widgets
+
 __author__ = 'Alfredo Saglimbeni'
 import re
 import uuid
@@ -7,7 +9,7 @@ from django.utils.translation import ugettext as _
 from datetime import datetime
 from django.utils import translation
 
-I18N  = """
+I18N = """
 $.fn.datetimepicker.dates['en'] = {
     days: %s,
     daysShort: %s,
@@ -21,21 +23,21 @@ $.fn.datetimepicker.dates['en'] = {
 """
 
 datetimepicker_options = """
-format : '%s',
-startDate : '%s',
-endDate : '%s',
-weekStart : %s,
-daysOfWeekDisabled : %s,
-autoclose : %s,
-startView : %s,
-minView : %s,
-maxView : %s,
-todayBtn : %s,
-todayHighlight : %s,
-minuteStep : %s,
-pickerPosition : '%s',
-showMeridian : %s,
-language : '%s',
+    format : '%s',
+    startDate : '%s',
+    endDate : '%s',
+    weekStart : %s,
+    daysOfWeekDisabled : %s,
+    autoclose : %s,
+    startView : %s,
+    minView : %s,
+    maxView : %s,
+    todayBtn : %s,
+    todayHighlight : %s,
+    minuteStep : %s,
+    pickerPosition : '%s',
+    showMeridian : %s,
+    language : '%s',
 """
 
 dateConversion = {
@@ -43,7 +45,7 @@ dateConversion = {
     'ss' : '%S',
     'ii' : '%M',
     'hh' : '%H',
-    'HH' :  '%I',
+    'HH' : '%I',
     'dd' : '%d',
     'mm' : '%m',
     #'M' :  '%b',
@@ -53,9 +55,12 @@ dateConversion = {
 }
 class DateTimeWidget(MultiWidget):
 
-    def __init__(self, attrs=None, options = {}):
+    def __init__(self, attrs=None, options=None):
         if attrs is None:
             attrs = {'readonly':''}
+
+        if options is None:
+            options = {}
 
         self.option = ()
         self.option += (options.get('format','dd/mm/yyyy hh:ii'),)
@@ -73,6 +78,9 @@ class DateTimeWidget(MultiWidget):
         self.option += (options.get('pickerPosition','bottom-right'),)
         self.option += (options.get('showMeridian','false'),)
 
+        self.language = options.get('language', 'en')
+        self.option += (self.language,)
+
         pattern = re.compile(r'\b(' + '|'.join(dateConversion.keys()) + r')\b')
         self.dataTimeFormat = self.option[0]
         self.format =  pattern.sub(lambda x: dateConversion[x.group()], self.option[0])
@@ -81,12 +89,11 @@ class DateTimeWidget(MultiWidget):
 
         super(DateTimeWidget, self).__init__(widgets, attrs)
 
-
     def value_from_datadict(self, data, files, name):
         date_time = [
-                     widget.value_from_datadict(data, files, name + '_%s' % i)
-                     for i, widget in enumerate(self.widgets)
-                    ]
+            widget.value_from_datadict(data, files, name + '_%s' % i)
+            for i, widget in enumerate(self.widgets)
+        ]
         try:
             D = to_current_timezone(datetime.strptime(date_time[0], self.format))
         except ValueError:
@@ -100,7 +107,6 @@ class DateTimeWidget(MultiWidget):
             return (value,)
         return (None,)
 
-
     def format_output(self, rendered_widgets):
         """
         Given a list of rendered widgets (as strings), it inserts an HTML
@@ -109,31 +115,25 @@ class DateTimeWidget(MultiWidget):
         Returns a Unicode string representing the HTML for the whole lot.
         """
 
-        WEEKDAYS = [ _("Sunday"), _("Monday"), _("Tuesday"), _("Wednesday"), _("Thursday"), _("Friday"), _("Saturday"), _("Sunday")]
-        WEEKDAYS_ABBR = [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat"), _("Sun")]
-        WEEKDAYS_MIN = [_("Su"), _("Mo"), _("Tu"), _("We"), _("Th"), _("Fr"), _("Sa"), _("Su")]
-        MONTHS = [_("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")]
-        MONTHS_ABBR = [_("Jan"), _("Feb"), _("Mar"), _("Apr"), _("May"), _("Jun"), _("Jul"), _("Aug"), _("Sep"), _("Oct"), _("Nov"), _("Dec")]
-        MERIDIEN = [_("am"), _("pm")]
-        SUFFIX = [_("st"), _("nd"), _("rd"), _("th")]
-        TODAY = '"%s"' % _("Today")
-        js_i18n = I18N % (WEEKDAYS,WEEKDAYS_ABBR, WEEKDAYS_MIN, MONTHS, MONTHS_ABBR, MERIDIEN, SUFFIX, TODAY)
-        options = self.option+(translation.get_language(),)
-        js_options = datetimepicker_options % options
+        js_options = datetimepicker_options % self.option
         id = uuid.uuid4().hex
         return '<div id="%s"  class="input-append date form_datetime">'\
                '%s'\
                '<span class="add-on"><i class="icon-th"></i></span>'\
                '</div>'\
                '<script type="text/javascript">'\
-               '%s$("#%s").datetimepicker({%s});'\
-               '</script>  ' % ( id, rendered_widgets[0], js_i18n.replace(', u\'',', \'').replace('[u', '['), id , js_options)
+               '$("#%s").datetimepicker({%s});'\
+               '</script>  ' % (id, rendered_widgets[0], id, js_options)
 
+    def _media(self):
+        js = ["js/bootstrap-datetimepicker.js"]
+        if self.language != 'en':
+            js.append("js/locales/bootstrap-datetimepicker.%s.js" % self.language)
 
-    class Media:
-        css = {
-            'all' : ('css/datetimepicker.css',)
-        }
-        js = (
-            "js/bootstrap-datetimepicker.js",
-            )
+        return widgets.Media(
+            css={
+                'all' : ('css/datetimepicker.css',)
+            },
+            js=js
+        )
+    media = property(_media)
