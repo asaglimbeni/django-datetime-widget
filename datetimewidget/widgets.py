@@ -84,11 +84,12 @@ class DateTimeWidget(MultiWidget):
 
     def value_from_datadict(self, data, files, name):
         date_time = [
-        widget.value_from_datadict(data, files, name + '_%s' % i)
-        for i, widget in enumerate(self.widgets)]
+            widget.value_from_datadict(data, files, name + '_%s' % i)
+            for i, widget in enumerate(self.widgets)
+        ]
         try:
             D  = to_current_timezone(datetime.strptime(date_time[0], self.format))
-        except ValueError:
+        except (ValueError, TypeError):
             return ''
         else:
             return str(D)
