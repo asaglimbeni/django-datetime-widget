@@ -11,7 +11,7 @@ setup(name = "django-datetime-widget",
     author_email = "alfredo.saglimbeni@gmail.com",
     url = "",
     packages = find_packages(),
-    include_package_data=False,
+    include_package_data=True,
     install_requires = [],
     classifiers = [
         'Development Status :: 4 - Beta',
