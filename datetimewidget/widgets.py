@@ -5,9 +5,8 @@ import re
 import uuid
 
 from django.forms.widgets import  MultiWidget , to_current_timezone, DateTimeInput
-from django.utils.translation import ugettext as _
 from datetime import datetime
-from django.utils import translation
+from django.utils.formats import get_format, get_language
 
 I18N = """
 $.fn.datetimepicker.dates['en'] = {
@@ -96,7 +95,7 @@ class DateTimeWidget(MultiWidget):
         ]
         try:
             D = to_current_timezone(datetime.strptime(date_time[0], self.format))
-        except ValueError:
+        except (ValueError, TypeError), e:
             return ''
         else:
             return D
