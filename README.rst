@@ -4,11 +4,11 @@ django-datetime-widget
 ``django-datetime-widget`` is clean and easy to configure widget for DateTimeField. It based on the famous javascript library  `bootstrap-datetimepicker
 <https://github.com/smalot/bootstrap-datetimepicker>`_.
 
-``django-datetime-widget`` is perfect when you use an DateTimeField on your model where is necessary to have a specific date time format with a clean input.
+``django-datetime-widget`` is perfect when you use an DateTimeField on your model where is necessary to have a specific date time format with a clean input, now it support django localization and datetime format is adapting to user request.
 
 Requirements
 ------------
-* `Bootstrap  <http://twitter.github.com/bootstrap/>`_ 2.0.4+
+* `Bootstrap  <http://twitter.github.com/bootstrap/>`_ 2.0.4+ (3.0 not yet!)
 * `jQuery <http://jquery.com/>`_ 1.7.1+
 
 Screenshots
@@ -66,6 +66,14 @@ Installation
 
 #. Add  ``datetimewidget`` to your INSTALLED_APPS.
 
+If you want to use localization:
+
+#. Set USE_L10N = True, USE_TZ = True  and USE_I18N = True in settings.py
+
+#. Add 'django.middleware.locale.LocaleMiddleware' to MIDDLEWARE_CLASSES in settings.py
+
+#. When you create the widget add usel10n = True like attribute : DateTimeWidget(usel10n=True)
+
 Basic Configuration
 -------------------
 #. Create your model-form and set  DateTimeWidget widget to your DateTimeField  ::
@@ -76,7 +84,8 @@ Basic Configuration
         class Meta:
             model = yourModel
             widgets = {
-                'datetime': DateTimeWidget(attrs={'id':"yourdatetimeid"})
+                #Use localization
+                'datetime': DateTimeWidget(attrs={'id':"yourdatetimeid"}, usel10n = True)
             }
 
 #. Download `twitter bootstrap <http://twitter.github.com/bootstrap/>`_  to your static file folder.
@@ -92,6 +101,14 @@ Basic Configuration
 
     ....
     </head>
+    <body>
+        <form  action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input id="submit" type="submit" value="Submit">
+        </form>
+    </body>
+
 
 #. Optional: you can add option dictionary to DatetimeWidget to customize your input, for example to have date time with meridian::
 
@@ -102,14 +119,16 @@ Basic Configuration
         'showMeridian' : 'true'
         }
         widgets = {
+            #NOT Use localization and set a default format
             'datetime': DateTimeWidget(options = dateTimeOptions)
             }
+
+!!! If you add 'format' into options and in the same time set usel10n as True the first one is ignored. !!!
 
 Options
 =======
 
 * format
-
 
 String.  Default: 'dd/mm/yyyy hh:ii'
 
@@ -150,7 +169,7 @@ Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday).
 
 * autoclose
 
-String.  Default: 'false'
+String.  Default: 'true'
 
 Whether or not to close the datetimepicker immediately when a date is selected.
 
@@ -208,11 +227,37 @@ String. Default: 'false'
 
 This option will enable meridian views for day and hour views.
 
+* clearBtn
+
+Boolean.  Default: false
+
+If true, displays a "Clear" button at the bottom of the datepicker to clear the input value. If "autoclose" is also set to true, this button will also close the datepicker.
+
+CHANGELOG
+---------
+* Add Clear button
+* Fix TypeError bug
+* Support localization
+* Update static file with last commit of bootstrap-datetime-picker
+* update js lib, native localization, thanks to @quantum13
+* autoclose is true by default
+
+Contribute
+----------
+
+#. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a `Contributor Friendly`_ tag for issues that should be ideal for people who are not very familiar with the codebase yet.
+  #. If you feel uncomfortable or uncertain about an issue or your changes, feel free to email @asagli and he will happily help you via email, Skype, remote pairing or whatever you are comfortable with.
+#. Fork `the repository`_ on GitHub to start making your changes to the **master** branch (or branch off of it).
+#. Please, shows that the bug was fixed or that the feature works as expected.
+#. Send a pull request and bug the maintainer until it gets merged and published. :)
+
+.. _`the repository`: https://github.com/asaglimbeni/django-datetime-widget
+.. _Contributor Friendly: https://github.com/asaglimbeni/django-datetime-widget/issues?direction=desc&labels=Contributor+Friendly&page=1&sort=updated&state=open
+
+
 TODO
 ----
 #. widget for TimeField
 #. widget for DateField
-#. widget for DateTime range. 
-#. provide the short/full textual representation of a month with internationalization.
-#. some more controlls in tranlation of bootstrap-datetime format to python-datetime format.
+#. widget for DateTime range.
 
