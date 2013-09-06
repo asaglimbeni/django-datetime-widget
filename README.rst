@@ -1,5 +1,9 @@
 django-datetime-widget
 ======================
+.. image:: https://pypip.in/v/django-datetime-widget/badge.png
+    :target: https://crate.io/packages/django-datetime-widget
+.. image:: https://pypip.in/d/django-datetime-widget/badge.png
+    :target: https://crate.io/packages/django-datetime-widget
 
 ``django-datetime-widget`` is clean and easy to configure widget for DateTimeField. It based on the famous javascript library  `bootstrap-datetimepicker
 <https://github.com/smalot/bootstrap-datetimepicker>`_.
