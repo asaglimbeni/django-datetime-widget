@@ -131,7 +131,7 @@ class DateTimeWidget(MultiWidget):
         ]
         try:
             D = to_current_timezone(datetime.strptime(date_time[0], self.format))
-        except (ValueError, TypeError), e:
+        except (ValueError, TypeError):
             return ''
         else:
             return D
