@@ -36,7 +36,7 @@ datetimepicker_options = """
     pickerPosition : '%s',
     showMeridian : %s,
     clearBtn : %s,
-    language : '%s',
+    language : '%s'
 """
 
 dateConversiontoPython = {
