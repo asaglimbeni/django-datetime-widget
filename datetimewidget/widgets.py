@@ -3,10 +3,14 @@ from django.forms import forms, widgets
 __author__ = 'Alfredo Saglimbeni'
 import re
 import uuid
-
-from django.forms.widgets import  MultiWidget , to_current_timezone, DateTimeInput
+try:
+    from django.forms.widgets import to_current_timezone
+except ImportError:
+    to_current_timezone = lambda obj: obj # passthrough, no tz support
+from django.forms.widgets import  MultiWidget, DateTimeInput
 from datetime import datetime
 from django.utils.formats import get_format, get_language
+
 I18N = """
 $.fn.datetimepicker.dates['en'] = {
     days: %s,
