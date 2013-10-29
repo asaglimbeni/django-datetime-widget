@@ -1,7 +1,7 @@
 django-datetime-widget
 ======================
 .. image:: https://d2weczhvl823v0.cloudfront.net/asaglimbeni/django-datetime-widget/trend.png
-    :target:https://bitdeli.com/free
+    :target: https://bitdeli.com/free
 .. image:: https://pypip.in/v/django-datetime-widget/badge.png
     :target: https://crate.io/packages/django-datetime-widget
 .. image:: https://pypip.in/d/django-datetime-widget/badge.png
