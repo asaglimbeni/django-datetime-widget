@@ -20,7 +20,7 @@ setup(name = "django-datetime-widget",
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Topic :: Django widget :: Software Development :: Libraries :: Python Modules ',
+        'Topic :: Software Development :: Libraries :: Python Modules ',
         ],
     zip_safe=False,
 )
