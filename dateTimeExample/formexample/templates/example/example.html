@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% if bootstrap == 3 %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {% else %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    {% endif %}
+
+    {% if form %}
+    {{ form.media }}
+    {% endif %}
+    <title>CICU Image Crop ajax Uploader</title>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li{% if bootstrap == 2 %} class="active"{% endif %}><a href="/model_form_v2">Bootstrap 2</a></li>
+          <li {% if bootstrap == 3 %} class="active"{% endif %}><a href="/model_form_v3">Bootstrap 3</a></li>
+        </ul>
+        <h3 class="text-muted">Django-datetime-widget</h3>
+    </div>
+    <div class="row">
+        {% if form %}
+        <form id="dateTimeExample" action="" method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <br/>
+        <input id="submit" type="submit" value="Submit" class="btn">
+        </form>
+        {% endif %}
+        {% if datetime %}
+        {{ datetime.date_time }}
+        {% endif %}
+    </div>
+    <div class="footer">
+            <p>Developed by <a href="http://bit.ly/asaglimbeni">Alfredo Saglimbeni</a> based on <a href="https://github.com/smalot/bootstrap-datetimepicker">bootstrap-datetimepicker</a> </p>
+    </div>
+</div>
+</body>
+</html>
