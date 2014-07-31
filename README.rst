@@ -18,6 +18,8 @@ Available widgets
 *  **DateWidget** : display the input only with the calendar picker.
 *  **TimeWidget** : display the input only with the time picker.
 
+`See Demo page <http://bit.ly/django-datetime-widget-demo-page>`_
+
 Requirements
 ------------
 * `Bootstrap  <http://getbootstrap.com/>`_ 2.0.4+ and 3.2.0
@@ -247,34 +249,42 @@ If true, displays a "Clear" button at the rigth side of the input value.
 
 CHANGELOG
 ---------
-* Add Clear button
-* Fix TypeError bug
-* Support localization
-* Update static file with last commit of bootstrap-datetime-picker
-* update js lib, native localization, thanks to @quantum13
-* autoclose is true by default
 
 * 0.9V
+  
   * Update bootstrap datetime picker to the last version.
+  
   * CLOSE #20 (support bootstrap 2 and 3).
+  
   * CLOSE #17 TimeWidget.
+  
   * CLOSE #16 DateWidget.
+  
   * new clear button at the rigth side of the input value.
+  
   * add dateTimeExample django project.
 
 * 0.6V
+  
   * Add Clear button
+  
   * Fix TypeError bug
+  
   * Support localization
+  
   * Update static file with last commit of bootstrap-datetime-picker
+  
   * update js lib, native localization, thanks to @quantum13
+  
   * autoclose is true by default
 
 Contribute
 ----------
 
 1. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a `Contributor Friendly`_ tag for issues that should be ideal for people who are not very familiar with the codebase yet.
+  
   * If you feel uncomfortable or uncertain about an issue or your changes, feel free to email @asaglimbeni and he will happily help you via email, Skype, remote pairing or whatever you are comfortable with.
+
 2. Fork develop branch from `the repository`_ on GitHub to start making your changes to the **develop** branch (or branch off of it).
 3. Please, shows that the bug was fixed or that the feature works as expected.
 4. Send a pull request and bug the maintainer until it gets merged and published. :)
@@ -287,5 +297,4 @@ Contribute
 TODO
 ----
 #. widget for DateTime range.
-
 
