@@ -2,6 +2,10 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "48952996-13d3-49f3-9854-e6438041a4b3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+    <meta property="og:description" content="Bootstrap django-datetime-widget is a simple and clean widget for DateField, Timefiled and DateTimeField in Django framework. It is based on Bootstrap datetime picker, supports both Bootstrap 3 and Bootstrap 2" />
     {% if bootstrap == 3 %}
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -11,29 +15,30 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <title>Boostrap 3 django-datetime-widget demo</title>
     {% else %}
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
-
+    <title>Boostrap 2 django-datetime-widget demo</title>
     {% endif %}
 
     {% if form %}
     {{ form.media }}
     {% endif %}
-    <title>CICU Image Crop ajax Uploader</title>
 </head>
 <body>
+<a href="http://bit.ly/django-datetime-widget"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 <div class="container">
-    <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li{% if bootstrap == 2 %} class="active"{% endif %}><a href="/model_form_v2">Bootstrap 2</a></li>
-          <li {% if bootstrap == 3 %} class="active"{% endif %}><a href="/model_form_v3">Bootstrap 3</a></li>
+    <div class="header"> 
+        <ul style="padding-right:60px" class="nav nav-pills pull-right">
+          <li{% if bootstrap == 2 %} class="active"{% endif %}><a href="/model_form_v2/">Bootstrap 2</a></li>
+          <li {% if bootstrap == 3 %} class="active"{% endif %}><a href="/model_form_v3/">Bootstrap 3</a></li>
         </ul>
-        <h3 class="text-muted">Django-datetime-widget</h3>
+        <h3 class="text-muted">Django-datetime-widget demo</h3>
     </div>
-    <div class="row">
+    <div id="form-demo" class="row-field">
         {% if form %}
         <form id="dateTimeExample" action="" method="POST" class="form-group">
         {% csrf_token %}
@@ -46,8 +51,42 @@
         {{ datetime.date_time }}
         {% endif %}
     </div>
+<div id="code-demo" class="row-field">
+    <h3>Code</h3>
+    <pre class="pre-scrollable">
+from django.db import models
+from django import forms
+from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
+
+# Bootstrap 3 
+
+class testFormBootstrap3(forms.Form):<br/>
+    date_time = forms.DateTimeField(widget=DateTimeWidget(usel10n=True, bootstrap_version=3))<br/>
+    date = forms.DateField(widget=DateWidget(usel10n=True, bootstrap_version=3))<br/>
+    time = forms.TimeField(widget=TimeWidget(usel10n=True, bootstrap_version=3))<br/>
+# Bootstrap 2<br/>
+class testFormBootstrap2(forms.Form):<br/>
+    date_time = forms.DateTimeField(widget=DateTimeWidget(usel10n=True, bootstrap_version=2))<br/>
+    date = forms.DateField(widget=DateWidget(usel10n=True, bootstrap_version=2))<br/>
+    time = forms.TimeField(widget=TimeWidget(usel10n=True, bootstrap_version=2))<br/>
+      
+</pre>
+    </div>
+	<div class="page-header">If you like <b>django-datetime-widget</b> share it <span class='st_facebook_hcount' displayText='Facebook'></span>
+<span class='st_twitter_hcount' displayText='Tweet'></span>
+<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
+<span class='st_googleplus_hcount' displayText='Google +'></span>
+<span class='st_email_hcount' displayText='Email'></span>
+or I will be grateful if <form style="display:inline;" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="M8S46JPXPGUBQ">
+<input type="image" width="90px" src="http://django-datetime-widget.asaglimbeni.me/static/buy-me-a-beer.png" border="0" name="submit" alt="PayPal - Il metodo rapido, affidabile e innovativo per pagare e farsi pagare.">
+<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+</div>
     <div class="footer">
-            <p><a href="https://github.com/asaglimbeni/django-datetime-widget"> django-datetime-widget </a> is developed by <a href="http://bit.ly/asaglimbeni">Alfredo Saglimbeni</a> based on <a href="https://github.com/smalot/bootstrap-datetimepicker">bootstrap-datetimepicker</a> </p>
+            <p><a href="http://bit.ly/django-datetime-widget"> django-datetime-widget </a> is developed by <a href="http://bit.ly/asaglimbeni">Alfredo Saglimbeni</a> based on <a href="https://github.com/smalot/bootstrap-datetimepicker">bootstrap-datetimepicker</a> </p>
     </div>
 </div>
 </body>
