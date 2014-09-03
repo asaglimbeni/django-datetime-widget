@@ -67,7 +67,7 @@ BOOTSTRAP_INPUT_TEMPLATE = {
            <span class="add-on"><i class="icon-th"></i></span>
        </div>
        <script type="text/javascript">
-           $("#%(id)s").datetimepicker({%(options)});
+           $("#%(id)s").datetimepicker({%(options)s});
        </script>
        """,
     3: """
