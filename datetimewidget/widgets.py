@@ -161,7 +161,7 @@ class PickerWidgetMixin(object):
                 format
                 )
 
-        super(PickerWidgetMixin, self).__init__(attrs)
+        super(PickerWidgetMixin, self).__init__(attrs, format=self.format)
 
     def render(self, name, value, attrs=None):
         final_attrs = self.build_attrs(attrs)
