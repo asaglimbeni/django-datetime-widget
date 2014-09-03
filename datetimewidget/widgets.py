@@ -242,8 +242,8 @@ class DateWidget(PickerWidgetMixin, DateInput):
             options = {}
 
         # Set the default options to show only the datepicker object
-        options['startView'] = options.get('startView', '2')
-        options['minView'] = options.get('minView', '2')
+        options['startView'] = options.get('startView', 2)
+        options['minView'] = options.get('minView', 2)
         options['format'] = options.get('format', 'dd/mm/yyyy')
 
         super(DateWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
@@ -264,9 +264,9 @@ class TimeWidget(PickerWidgetMixin, TimeInput):
             options = {}
 
         # Set the default options to show only the timepicker object
-        options['startView'] = options.get('startView', '1')
-        options['minView'] = options.get('minView', '0')
-        options['maxView'] = options.get('maxView', '1')
+        options['startView'] = options.get('startView', 1)
+        options['minView'] = options.get('minView', 0)
+        options['maxView'] = options.get('maxView', 1)
         options['format'] = options.get('format', 'hh:ii')
 
         super(TimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
