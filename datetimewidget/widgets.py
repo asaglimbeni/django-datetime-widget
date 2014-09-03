@@ -144,7 +144,7 @@ class PickerWidgetMixin(object):
             self.format = get_format(self.format_name)[0]
 
             # Convert Python format specifier to Javascript format specifier
-            self.option['format'] = toJavascript_re.sub(
+            self.options['format'] = toJavascript_re.sub(
                 lambda x: dateConversiontoJavascript[x.group()],
                 self.format
                 )
