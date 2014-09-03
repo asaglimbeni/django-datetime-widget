@@ -15,18 +15,55 @@ except ImportError:
     to_current_timezone = lambda obj: obj # passthrough, no tz support
 
 
-I18N = """
-$.fn.datetimepicker.dates['en'] = {
-    days: %s,
-    daysShort: %s,
-    daysMin: %s,
-    months: %s,
-    monthsShort: %s,
-    meridiem: %s,
-    suffix: %s,
-    today: %s
-};
-"""
+# This should be updated as more .po files are added to the datetime picker javascript code
+supported_languages = set([
+    'ar',
+    'bg',
+    'ca', 'cs',
+    'da', 'de',
+    'ee', 'el', 'es',
+    'fi', 'fr',
+    'he', 'hr', 'hu',
+    'id', 'is', 'it',
+    'ja',
+    'ko', 'kr',
+    'lt', 'lv',
+    'ms',
+    'nb', 'nl', 'no',
+    'pl', 'pt-BR', 'pt',
+    'ro', 'rs', 'rs-latin', 'ru',
+    'sk', 'sl', 'sv', 'sw',
+    'th', 'tr',
+    'ua', 'uk',
+    'zh-CN', 'zh-TW',
+    ])
+
+
+def get_supported_language(language_country_code):
+    """Helps us get from django's 'language-countryCode' to the datepicker's 'language' if we
+    possibly can.
+
+    If we pass the django 'language_countryCode' through untouched then it might not
+    match an exact language string supported by the datepicker and would default to English which
+    would be worse than trying to match the language part.
+    """
+
+    # Catch empty strings in case one sneeks in
+    if not language_country_code:
+        return 'en'
+
+    # Check full language & country code against the supported languages as there are dual entries
+    # in the list eg. zh-CN (assuming that is a language country code)
+    if language_country_code in supported_languages:
+        return language_country_code
+
+    # Grab just the language part and try that
+    language = language_country_code.split('-')[0]
+    if language in supported_languages:
+        return language
+
+    # Otherwise return English as the default
+    return 'en'
 
 
 dateConversiontoPython = {
@@ -129,6 +166,7 @@ class PickerWidgetMixin(object):
             attrs = {'readonly': ''}
 
         self.options = options
+
         self.is_localized = False
         self.format = None
 
@@ -150,9 +188,10 @@ class PickerWidgetMixin(object):
                 )
 
             # Set the local language
-            self.options['language'] = self.language
+            self.options['language'] = get_supported_language(get_language())
 
         else:
+
             # If we're not doing localisation, get the Javascript date format provided by the user,
             # with a default, and convert it to a Python data format for later string parsing
             format = self.options['format']
@@ -194,15 +233,16 @@ class PickerWidgetMixin(object):
 
         js = ["js/bootstrap-datetimepicker.js"]
 
-        if self.options.get('language', 'en') != 'en':
-            js.append("js/locales/bootstrap-datetimepicker.%s.js" % self.language)
+        language = self.options.get('language', 'en')
+        if language != 'en':
+            js.append("js/locales/bootstrap-datetimepicker.%s.js" % language)
 
         return widgets.Media(
             css={
                 'all': ('css/datetimepicker.css',)
-            },
+                },
             js=js
-        )
+            )
 
     media = property(_media)
 
