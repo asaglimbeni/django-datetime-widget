@@ -252,7 +252,6 @@ class DateWidget(DateTimeWidget):
         self.option = (pattern.sub(lambda x: dateConversiontoJavascript[x.group()], self.format),) + self.option[1:]
         self.language = get_language()
 
-
     def format_output(self, rendered_widgets):
         """
         Given a list of rendered widgets (as strings), it inserts an HTML
@@ -261,6 +260,18 @@ class DateWidget(DateTimeWidget):
         Returns a Unicode string representing the HTML for the whole lot.
         """
         return super(DateWidget, self).format_output(rendered_widgets).replace('glyphicon glyphicon-th', 'glyphicon glyphicon-calendar')
+
+    def decompress(self, value):
+
+        if self.is_localized:
+            # Adapt the format to the user.
+            self.to_local()
+
+        if value:
+            # Don't call to_current_timezone(value) for dates
+            value = value.strftime(self.format)
+            return (value,)
+        return (None,)
 
 
 class TimeWidget(DateTimeWidget):
