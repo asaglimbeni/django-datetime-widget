@@ -111,6 +111,12 @@ class DateTimeWidget(MultiWidget):
             options = {}
 
         self.option = ()
+
+        # 1- English is default language
+        # 2- It can be overwritten by default user with USE_L10N -> self.to_local()
+        # 3- Both can be overwritten by manual setting through options
+        self.language = 'en'
+
         if usel10n is True:
             self.is_localized = True
             # Use local datetime format Only if USE_L10N is true and middleware localize is active
@@ -134,12 +140,11 @@ class DateTimeWidget(MultiWidget):
         self.option += (options.get('pickerPosition', 'bottom-right'),)
         self.option += (options.get('showMeridian', 'false'),)
         self.option += (options.get('clearBtn', 'true'),)
+        self.option += (options.get('language', self.language),)
 
         # set clearBtn needs for format_output
         self.clearBtn = True if options.get('clearBtn', 'true') == 'true' else False
 
-        self.language = options.get('language', 'en')
-        self.option += (self.language,)
         if widgets is None:
             widgets = (DateTimeInput(attrs=attrs, format=self.format),)
 
