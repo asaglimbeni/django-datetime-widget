@@ -135,6 +135,17 @@ quoted_options = set([
     'pickerPosition',
     'viewSelect',
     'initialDate',
+    'weekStart',
+    'minuteStep'
+    'daysOfWeekDisabled',
+    'pickerPosition',
+    ])
+
+# to traslate boolean object to javascript
+quoted_bool_options = set([
+    'autoclose',
+    'todayHighlight',
+    'showMeridian',
     ])
 
 
@@ -146,6 +157,10 @@ def quote(key, value):
 
     if key in quoted_options and isinstance(value, basestring):
         return "'%s'" % value
+
+    if key in quoted_bool_options and isinstance(value, bool):
+        return {True:'true',False:'false'}[value]
+
     return value
 
 
@@ -205,6 +220,9 @@ class PickerWidgetMixin(object):
     def render(self, name, value, attrs=None):
         final_attrs = self.build_attrs(attrs)
         rendered_widget = super(PickerWidgetMixin, self).render(name, value, final_attrs)
+
+        #if not set, autoclose have to be true.
+        self.options['autoclose'] = True if self.options.get('autoclose', None) is None else self.options['autoclose']
 
         # Build javascript options out of python dictionary
         options_list = []
