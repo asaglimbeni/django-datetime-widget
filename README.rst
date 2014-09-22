@@ -250,6 +250,14 @@ If true, displays a "Clear" button at the rigth side of the input value.
 CHANGELOG
 ---------
 
+* 0.9.1V
+
+  * python options are correct converted to the javascript options.
+
+  * FIX #38 #40.
+
+  * code refactor and bug fixes.
+
 * 0.9V
   
   * Update bootstrap datetime picker to the last version.
