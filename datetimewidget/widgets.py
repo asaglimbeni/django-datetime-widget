@@ -138,7 +138,6 @@ quoted_options = set([
     'weekStart',
     'minuteStep'
     'daysOfWeekDisabled',
-    'pickerPosition',
     ])
 
 # to traslate boolean object to javascript
@@ -222,7 +221,7 @@ class PickerWidgetMixin(object):
         rendered_widget = super(PickerWidgetMixin, self).render(name, value, final_attrs)
 
         #if not set, autoclose have to be true.
-        self.options['autoclose'] = True if self.options.get('autoclose', None) is None else self.options['autoclose']
+        self.options.setdefault('autoclose', True)
 
         # Build javascript options out of python dictionary
         options_list = []
