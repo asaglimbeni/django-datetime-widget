@@ -119,6 +119,7 @@ class DateTimeWidget(MultiWidget):
             pattern = re.compile(r'\b(' + '|'.join(dateConversiontoPython.keys()) + r')\b')
             self.option += (options.get('format', 'dd/mm/yyyy hh:ii'),)
             self.format = pattern.sub(lambda x: dateConversiontoPython[x.group()], self.option[0])
+            self.language = options.get('language', 'en')
 
         self.option += (options.get('startDate', ''),)
         self.option += (options.get('endDate', ''),)
@@ -137,8 +138,7 @@ class DateTimeWidget(MultiWidget):
 
         # set clearBtn needs for format_output
         self.clearBtn = True if options.get('clearBtn', 'true') == 'true' else False
-
-        self.language = options.get('language', 'en')
+	        
         self.option += (self.language,)
         if widgets is None:
             widgets = (DateTimeInput(attrs=attrs, format=self.format),)
