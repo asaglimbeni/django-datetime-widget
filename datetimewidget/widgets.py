@@ -25,22 +25,23 @@ $.fn.datetimepicker.dates['en'] = {
 """
 
 datetimepicker_options = """
-    format : '%s',
-    startDate : '%s',
-    endDate : '%s',
-    weekStart : %s,
-    daysOfWeekDisabled : %s,
-    autoclose : %s,
-    startView : %s,
-    minView : %s,
-    maxView : %s,
-    todayBtn : %s,
-    todayHighlight : %s,
-    minuteStep : %s,
-    pickerPosition : '%s',
-    showMeridian : %s,
-    clearBtn : %s,
-    language : '%s',
+    format : '{format}',
+    startDate : '{startDate}',
+    endDate : '{endDate}',
+    initialDate: '{initialDate}',
+    weekStart : {weekStart},
+    daysOfWeekDisabled : {daysOfWeekDisabled},
+    autoclose : {autoclose},
+    startView : {startView},
+    minView : {minView},
+    maxView : {maxView},
+    todayBtn : {todayBtn},
+    todayHighlight : {todayHighlight},
+    minuteStep : {minuteStep},
+    pickerPosition : '{pickerPosition}',
+    showMeridian : {showMeridian},
+    clearBtn : {clearBtn},
+    language : '{language}',
 """
 
 dateConversiontoPython = {
@@ -96,7 +97,7 @@ class DateTimeWidget(MultiWidget):
     DateTimeWidget is the corresponding widget for Date filed, it renders only the date section of datetime picker.
     """
 
-    def __init__(self, attrs=None, options=None, usel10n=None, widgets=None, bootstrap_version=None):
+    def __init__(self, attrs=None, options={}, usel10n=None, widgets=None, bootstrap_version=None):
 
         if bootstrap_version in [2,3]:
             self.bootstrap_version = bootstrap_version
@@ -107,39 +108,38 @@ class DateTimeWidget(MultiWidget):
         if attrs is None:
             attrs = {'readonly': ''}
 
-        if options is None:
-            options = {}
-
-        self.option = ()
+        self.options = {
+                'format': 'dd/mm/yyyy hh:ii',
+                'language': 'en',
+                'clearBtn': 'true',
+                'showMeridian': 'false',
+                'pickerPosition': 'bottom-right',
+                'minuteStep': '5',
+                'todayHighlight': 'false',
+                'todayBtn': 'false',
+                'maxView': '4',
+                'minView': '0',
+                'startView': '2',
+                'autoclose': 'true',
+                'daysOfWeekDisabled': '[]',
+                'weekStart': '0',
+                'initialDate': '',
+                'endDate': '',
+                'startDate': '',
+        }
+        self.options.update(options)
         if usel10n is True:
             self.is_localized = True
             # Use local datetime format Only if USE_L10N is true and middleware localize is active
             self.to_local()
         else:
             pattern = re.compile(r'\b(' + '|'.join(dateConversiontoPython.keys()) + r')\b')
-            self.option += (options.get('format', 'dd/mm/yyyy hh:ii'),)
-            self.format = pattern.sub(lambda x: dateConversiontoPython[x.group()], self.option[0])
-
-        self.option += (options.get('startDate', ''),)
-        self.option += (options.get('endDate', ''),)
-        self.option += (options.get('weekStart', '0'),)
-        self.option += (options.get('daysOfWeekDisabled', '[]'),)
-        self.option += (options.get('autoclose', 'true'),)
-        self.option += (options.get('startView', '2'),)
-        self.option += (options.get('minView', '0'),)
-        self.option += (options.get('maxView', '4'),)
-        self.option += (options.get('todayBtn', 'false'),)
-        self.option += (options.get('todayHighlight', 'false'),)
-        self.option += (options.get('minuteStep', '5'),)
-        self.option += (options.get('pickerPosition', 'bottom-right'),)
-        self.option += (options.get('showMeridian', 'false'),)
-        self.option += (options.get('clearBtn', 'true'),)
+            self.format = pattern.sub(lambda x: dateConversiontoPython[x.group()], self.options['format'])
 
         # set clearBtn needs for format_output
-        self.clearBtn = True if options.get('clearBtn', 'true') == 'true' else False
+        self.clearBtn = True if self.options['clearBtn'] == 'true' else False
 
-        self.language = options.get('language', 'en')
-        self.option += (self.language,)
+        self.language = self.options['language']
         if widgets is None:
             widgets = (DateTimeInput(attrs=attrs, format=self.format),)
 
@@ -155,7 +155,7 @@ class DateTimeWidget(MultiWidget):
         self.format = get_format('DATETIME_INPUT_FORMATS')[0]
         if hasattr(self, 'widgets') and self.widgets[0]:
             self.widgets[0].format = self.format
-        self.option = (pattern.sub(lambda x: dateConversiontoJavascript[x.group()], self.format),) + self.option[1:]
+        self.options['format'] = pattern.sub(lambda x: dateConversiontoJavascript[x.group()], self.format)
         self.language = get_language()
 
     def value_from_datadict(self, data, files, name):
@@ -198,7 +198,7 @@ class DateTimeWidget(MultiWidget):
             # Adapt the format to the user.
             self.to_local()
 
-        js_options = datetimepicker_options % self.option
+        js_options = datetimepicker_options.format(**self.options)
 
         id = uuid.uuid4().hex
    
