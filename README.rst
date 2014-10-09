@@ -129,8 +129,8 @@ Basic Configuration
 
         dateTimeOptions = {
         'format': 'dd/mm/yyyy HH:ii P',
-        'autoclose': 'true',
-        'showMeridian' : 'true'
+        'autoclose': True,
+        'showMeridian' : True
         }
         widgets = {
             #NOT Use localization and set a default format
@@ -159,7 +159,7 @@ The date format, combination of  P, hh, HH , ii, ss, dd, yy, yyyy.
 
 * weekStart
 
-String.  Default: '0'
+Integer.  Default: 0
 
 Day of the week start. '0' (Sunday) to '6' (Saturday)
 
@@ -177,9 +177,9 @@ The latest date that may be selected; all later dates will be disabled.
 
 * daysOfWeekDisabled
 
-String.  Default:  '[]'
+String.  Default:  ''
 
-Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends:  '[0,6]'.
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends:  '0,6'.
 
 * autoclose
 
@@ -189,7 +189,7 @@ Whether or not to close the datetimepicker immediately when a date is selected.
 
 * startView
 
-String.  Default: '2'
+Integer.  Default: 2
 
 The view that the datetimepicker should show when it is opened.
 Accepts values of :
@@ -201,31 +201,31 @@ Accepts values of :
 
 * minView
 
-String. Default: '0'
+Integer. Default: 0
 
 The lowest view that the datetimepicker should show.
 
 * maxView
 
-String. Default: '4'
+Integer. Default: 4
 
 The highest view that the datetimepicker should show.
 
 * todayBtn
 
-String.  Default: 'false'
+Boolean.  Default: False
 
 If true , displays a "Today" button at the bottom of the datetimepicker to select the current date.  If true, the "Today" button will only move the current date into view.
 
 * todayHighlight
 
-String.  Default: 'false'
+Boolean.  Default: False
 
 If true, highlights the current date.
 
 * minuteStep
 
-String.  Default: '5'
+Integer.  Default: 5
 
 The increment used to build the hour view. A button is created for each <code>minuteStep</code> minutes.
 
@@ -237,18 +237,26 @@ This option allows to place the picker just under the input field for the compon
 
 * showMeridian
 
-String. Default: 'false'
+Boolean. Default: False
 
 This option will enable meridian views for day and hour views.
 
 * clearBtn
 
-Boolean.  Default: false
+Boolean.  Default: False
 
 If true, displays a "Clear" button at the rigth side of the input value.
 
 CHANGELOG
 ---------
+
+* 0.9.1V
+
+  * python options are correct converted to the javascript options.
+
+  * FIX #38 #40.
+
+  * code refactor and bug fixes.
 
 * 0.9V
   
