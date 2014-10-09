@@ -182,7 +182,10 @@ class DateTimeWidget(MultiWidget):
             self.to_local()
 
         if value:
-            value = to_current_timezone(value).strftime(self.format)
+            try:
+                value = to_current_timezone(value).strftime(self.format)
+            except:
+                pass
             return (value,)
         return (None,)
 
