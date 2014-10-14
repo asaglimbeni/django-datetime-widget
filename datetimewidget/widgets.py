@@ -8,6 +8,7 @@ import uuid
 from django.forms import forms, widgets
 from django.forms.widgets import MultiWidget, DateTimeInput, DateInput, TimeInput
 from django.utils.formats import get_format, get_language
+from django.utils.safestring import mark_safe
 
 try:
     from django.forms.widgets import to_current_timezone
@@ -235,7 +236,7 @@ class PickerWidgetMixin(object):
 
         clearBtn = True if self.options.get('clearBtn', 'true') == 'true' else False
 
-        return (
+        return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
                 % dict(
                     id=id,
@@ -244,7 +245,7 @@ class PickerWidgetMixin(object):
                     glyphicon=self.glyphicon,
                     options=js_options
                     )
-                )
+        )
 
     def _media(self):
 

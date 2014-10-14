@@ -252,6 +252,10 @@ CHANGELOG
 
 * 0.9.1V
 
+  * FIX #46
+
+* 0.9.1V
+
   * python options are correct converted to the javascript options.
 
   * FIX #38 #40.
