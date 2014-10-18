@@ -146,6 +146,7 @@ quoted_bool_options = set([
     'autoclose',
     'todayHighlight',
     'showMeridian',
+    'clearBtn',
     ])
 
 
@@ -234,7 +235,7 @@ class PickerWidgetMixin(object):
         # Use provided id or generate hex to avoid collisions in document
         id = final_attrs.get('id', uuid.uuid4().hex)
 
-        clearBtn = True if self.options.get('clearBtn', 'true') == 'true' else False
+        clearBtn = True if quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true' else False
 
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
