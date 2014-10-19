@@ -235,7 +235,7 @@ class PickerWidgetMixin(object):
         # Use provided id or generate hex to avoid collisions in document
         id = final_attrs.get('id', uuid.uuid4().hex)
 
-        clearBtn = True if quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true' else False
+        clearBtn = quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true'
 
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
