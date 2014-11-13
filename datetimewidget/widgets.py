@@ -165,6 +165,28 @@ def quote(key, value):
     return value
 
 
+class Javascript(object):
+    """Object to help inject Javascript code into options settings that get quoted if they
+    are strings. This gets around the issue by not being a string-type and injecting the code
+    without quotes in the __str__ method. Example:
+
+       # Sets the iniital date to 7pm on the client's current date
+       >>> options = {
+           'initialDate': Javascript('''function() {
+                var now = new Date();
+                var seven = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
+                return seven;
+                }()''')
+           }
+    """
+
+    def __init__(self, code):
+        self.code = code
+
+    def __str__(self):
+        return self.code
+
+
 class PickerWidgetMixin(object):
 
     format_name = None
