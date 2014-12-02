@@ -9,6 +9,7 @@ from django.forms import forms, widgets
 from django.forms.widgets import MultiWidget, DateTimeInput, DateInput, TimeInput
 from django.utils.formats import get_format, get_language
 from django.utils.safestring import mark_safe
+from django.utils.six import string_types
 
 try:
     from django.forms.widgets import to_current_timezone
@@ -156,7 +157,7 @@ def quote(key, value):
     numbers so we type check the value before wrapping it in quotes.
     """
 
-    if key in quoted_options and isinstance(value, basestring):
+    if key in quoted_options and isinstance(value, string_types):
         return "'%s'" % value
 
     if key in quoted_bool_options and isinstance(value, bool):
@@ -227,7 +228,7 @@ class PickerWidgetMixin(object):
 
         # Build javascript options out of python dictionary
         options_list = []
-        for key, value in self.options.iteritems():
+        for key, value in iter(self.options.items()):
             options_list.append("%s: %s" % (key, quote(key, value)))
 
         js_options = ",\n".join(options_list)

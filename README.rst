@@ -32,7 +32,7 @@ Screenshots
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_decade.png
 
-This view allows to select the day in the selected month.
+This view allows to select the year in a range of 10 years.
 
 * Year view
 
@@ -44,7 +44,7 @@ This view allows to select the month in the selected year.
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_month.png
 
-This view allows to select the year in a range of 10 years.
+This view allows to select the day in the selected month.
 
 * Day view
 
