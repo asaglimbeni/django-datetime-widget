@@ -249,8 +249,12 @@ If true, displays a "Clear" button at the rigth side of the input value.
 
 CHANGELOG
 ---------
+* 0.9.3V
+  
+  * FIX #48 
+  * Python 3 support 
 
-* 0.9.1V
+* 0.9.2V
 
   * FIX #46
 
