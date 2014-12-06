@@ -1,7 +1,7 @@
 
 __author__ = 'Alfredo Saglimbeni'
 
-from datetime import datetime
+from datetime import date
 import re
 import uuid
 
@@ -157,7 +157,7 @@ def quote(key, value):
     numbers so we type check the value before wrapping it in quotes.
     """
 
-    if key in quoted_options and isinstance(value, string_types):
+    if key in quoted_options and isinstance(value, (string_types, date)):
         return "'%s'" % value
 
     if key in quoted_bool_options and isinstance(value, bool):
