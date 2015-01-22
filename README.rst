@@ -124,6 +124,14 @@ Basic Configuration
     </body>
 
 
+#. Optional: you can add 'attrs' dictionary to DateTimeWidget to customize aspects of your input. Attributes such as 'readonly' and 'label' are available::
+
+        date_time_attributes = {'label': 'End', 'readonly': ''}
+        DateTimeWidget(attrs=date_time_attributes)
+
+The label parameter adds an input-group-addon containing the label to the left of the field.
+
+
 #. Optional: you can add option dictionary to DatetimeWidget to customize your input, for example to have date time with meridian::
 
 
