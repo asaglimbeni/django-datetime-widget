@@ -101,6 +101,7 @@ toJavascript_re = re.compile(r'(?<!\w)(' + '|'.join(dateConversiontoJavascript.k
 BOOTSTRAP_INPUT_TEMPLATE = {
     2: """
        <div id="%(id)s"  class="controls input-append date">
+           %(label)s
            %(rendered_widget)s
            %(clear_button)s
            <span class="add-on"><i class="icon-th"></i></span>
@@ -111,6 +112,7 @@ BOOTSTRAP_INPUT_TEMPLATE = {
        """,
     3: """
        <div id="%(id)s" class="input-group date">
+           %(label)s
            %(rendered_widget)s
            %(clear_button)s
            <span class="input-group-addon"><span class="glyphicon %(glyphicon)s"></span></span>
@@ -124,6 +126,8 @@ BOOTSTRAP_INPUT_TEMPLATE = {
 CLEAR_BTN_TEMPLATE = {2: """<span class="add-on"><i class="icon-remove"></i></span>""",
                       3: """<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>"""}
 
+LABEL_TEMPLATE = {2: """<span class="add-on">%(label)s</span>""",
+                  3: """<span class="input-group-addon">%(label)s</span>"""}
 
 quoted_options = set([
     'format',
@@ -237,12 +241,14 @@ class PickerWidgetMixin(object):
         id = final_attrs.get('id', uuid.uuid4().hex)
 
         clearBtn = quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true'
+        labelField = final_attrs.get('label', False)
 
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
                 % dict(
                     id=id,
                     rendered_widget=rendered_widget,
+                    label=LABEL_TEMPLATE[self.bootstrap_version] % dict(label=labelField) if labelField else "",
                     clear_button=CLEAR_BTN_TEMPLATE[self.bootstrap_version] if clearBtn else "",
                     glyphicon=self.glyphicon,
                     options=js_options
