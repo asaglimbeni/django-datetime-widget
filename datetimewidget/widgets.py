@@ -23,7 +23,7 @@ supported_languages = set([
     'bg',
     'ca', 'cs',
     'da', 'de',
-    'ee', 'el', 'es',
+    'ee', 'el', 'es','eu'
     'fi', 'fr',
     'he', 'hr', 'hu',
     'id', 'is', 'it',
