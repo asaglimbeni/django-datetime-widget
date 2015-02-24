@@ -12,7 +12,7 @@
         today: "Gaur",
         suffix: [],
         meridiem: [],
-        weekStart: 1,
-        format: "yyyy/mm/dd"
+        format: "yyyy/mm/dd",
+        weekStart: 1
     };
 }(jQuery));
