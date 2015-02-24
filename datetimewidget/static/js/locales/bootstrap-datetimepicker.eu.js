@@ -11,6 +11,8 @@
         monthsShort: ["Urt", "Ots", "Mar", "Api", "Mai", "Eka", "Uzt", "Abu", "Ira", "Urr", "Aza", "Abe"],
         today: "Gaur",
         suffix: [],
-        meridiem: []
+        meridiem: [],
+        weekStart: 1,
+        format: "yyyy/mm/dd"
     };
 }(jQuery));
