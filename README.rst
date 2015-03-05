@@ -9,7 +9,7 @@ django-datetime-widget
 ``django-datetime-widget``  is a simple and clean picker widget for DateField, Timefiled and DateTimeField in Django framework. It is based on `Bootstrap datetime picker
 <https://github.com/smalot/bootstrap-datetimepicker>`_, supports both Bootstrap 3 and Bootstrap 2 .
 
-``django-datetime-widget`` is perfect when you use a DateField, TimeField or DateTimeField in your model/form where is necessary to display the corresponding picker with a specific date/time format. Now it support django localization.
+``django-datetime-widget`` is perfect when you use a DateField, TimeField or DateTimeField in your model/form where is necessary to display the corresponding picker with a specific date/time format. Now it supports django localization.
 
 Available widgets
 -----------------
@@ -32,32 +32,32 @@ Screenshots
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_decade.png
 
-This view allows to select the year in a range of 10 years.
+This view allows the user to select the year in a range of 10 years.
 
 * Year view
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_year.png
 
-This view allows to select the month in the selected year.
+This view allows the user to select the month in the selected year.
 
 * Month view
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_month.png
 
-This view allows to select the day in the selected month.
+This view allows the user to select the day in the selected month.
 
 * Day view
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_day.png
 
-This view allows to select the hour in the selected day.
+This view allows the user to select the hour in the selected day.
 
 * Hour view
 
 .. image:: https://raw.github.com/smalot/bootstrap-datetimepicker/master/screenshot/standard_hour.png
 
-This view allows to select the preset of minutes in the selected hour.
-The range of 5 minutes (by default) has been selected to restrict buttons quantity to an acceptable value, but it can be overrided by the <code>minuteStep</code> property.
+This view allows the user to select the preset of minutes in the selected hour.
+The range of 5 minutes (by default) has been selected to restrict button quantity to an acceptable value, but it can be overwritten by the <code>minuteStep</code> property.
 
 * Day view - meridian
 
@@ -124,7 +124,7 @@ Basic Configuration
     </body>
 
 
-#. Optional: you can add option dictionary to DatetimeWidget to customize your input, for example to have date time with meridian::
+#. Optional: you can add an option dictionary to DatetimeWidget to customize your input. For example, to have date and time with meridian::
 
 
         dateTimeOptions = {
@@ -233,7 +233,7 @@ The increment used to build the hour view. A button is created for each <code>mi
 
 String. Default: 'bottom-right' (other supported value : 'bottom-left')
 
-This option allows to place the picker just under the input field for the component implementation instead of the default position which is at the bottom right of the button.
+This option allows you to place the picker just under the input field for the component implementation instead of the default position which is at the bottom right of the button.
 
 * showMeridian
 
@@ -302,7 +302,7 @@ Contribute
   * If you feel uncomfortable or uncertain about an issue or your changes, feel free to email @asaglimbeni and he will happily help you via email, Skype, remote pairing or whatever you are comfortable with.
 
 2. Fork develop branch from `the repository`_ on GitHub to start making your changes to the **develop** branch (or branch off of it).
-3. Please, shows that the bug was fixed or that the feature works as expected.
+3. Please show that the bug was fixed or that the feature works as expected.
 4. Send a pull request and bug the maintainer until it gets merged and published. :)
 5. Your changes will be released on the next version of django_datetime_widget!
 
