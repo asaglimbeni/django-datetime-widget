@@ -1,0 +1,13 @@
+# Database #
+#####################
+*.sql
+
+# Python and Django #
+#####################
+staticfiles
+public
+#build
+compressed
+*.py[co]
+*.egg*
+.coverage*.py[co]
