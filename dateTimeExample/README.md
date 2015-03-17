@@ -4,7 +4,7 @@ Here we assume that you already have either [virtualenv](https://github.com/pypa
 
 Instructions for `virtualenv`
 
-    $ git clone https://github.com/siolag161/django-datetime-widget.git dj-datetime-widget && cd dj-datetime-widget
+    $ git clone https://github.com/asaglimbeni/django-datetime-widget.git dj-datetime-widget && cd dj-datetime-widget
     $ cd dateTimeExample
     $ virtualenv dj-dtw-env && . dj-dtw-env/bin/activate
     $ pip install -r requirements.txt
@@ -13,7 +13,7 @@ Instructions for `virtualenv`
 
 Instructions for `virtualenvwrapper`
 
-    $ git clone https://github.com/siolag161/django-datetime-widget.git dj-datetime-widget && cd dj-datetime-widget
+    $ git clone https://github.com/asaglimbeni/django-datetime-widget.git dj-datetime-widget && cd dj-datetime-widget
     $ cd dateTimeExample
     $ mkvirtualenv dj-dtw-env 
     $ pip install -r requirements.txt
