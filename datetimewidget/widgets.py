@@ -1,7 +1,7 @@
-
 __author__ = 'Alfredo Saglimbeni'
 
 from datetime import datetime
+import json
 import re
 import uuid
 
@@ -82,7 +82,6 @@ dateConversiontoPython = {
 
 toPython_re = re.compile(r'\b(' + '|'.join(dateConversiontoPython.keys()) + r')\b')
 
-
 dateConversiontoJavascript = {
     '%M': 'ii',
     '%m': 'mm',
@@ -106,7 +105,9 @@ BOOTSTRAP_INPUT_TEMPLATE = {
            <span class="add-on"><i class="icon-th"></i></span>
        </div>
        <script type="text/javascript">
-           $("#%(id)s").datetimepicker({%(options)s});
+         document.addEventListener("DOMContentLoaded", function(event) {
+           $("#%(id)s").datetimepicker(%(options)s);
+          });
        </script>
        """,
     3: """
@@ -116,7 +117,9 @@ BOOTSTRAP_INPUT_TEMPLATE = {
            <span class="input-group-addon"><span class="glyphicon %(glyphicon)s"></span></span>
        </div>
        <script type="text/javascript">
-           $("#%(id)s").datetimepicker({%(options)s}).find('input').addClass("form-control");
+           document.addEventListener("DOMContentLoaded", function(event) {
+              $("#%(id)s").datetimepicker(%(options)s).find('input').addClass("form-control");
+           });
        </script>
        """
        }
@@ -227,17 +230,15 @@ class PickerWidgetMixin(object):
         self.options.setdefault('autoclose', True)
 
         # Build javascript options out of python dictionary
-        options_list = []
+	options_list = {}
         for key, value in iter(self.options.items()):
-            options_list.append("%s: %s" % (key, quote(key, value)))
-
-        js_options = ",\n".join(options_list)
-
-        # Use provided id or generate hex to avoid collisions in document
-        id = final_attrs.get('id', uuid.uuid4().hex)
+            options_list[key] = quote(key, value)
+	js_options = json.dumps(options_list)
+	
+        # Use provided id or generate hex to avoid collisions in document	    
+        id = final_attrs.get('id', uuid.uuid4().hex)	
 
         clearBtn = quote('clearBtn', self.options.get('clearBtn', 'true')) == 'true'
-
         return mark_safe(
             BOOTSTRAP_INPUT_TEMPLATE[self.bootstrap_version]
                 % dict(
