@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript">var switchTo5x=true;</script>
-<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "48952996-13d3-49f3-9854-e6438041a4b3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
     <meta property="og:description" content="Bootstrap django-datetime-widget is a simple and clean widget for DateField, Timefiled and DateTimeField in Django framework. It is based on Bootstrap datetime picker, supports both Bootstrap 3 and Bootstrap 2" />
     {% if bootstrap == 3 %}
     <!-- Latest compiled and minified CSS -->
@@ -14,19 +11,14 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <title>Boostrap 3 django-datetime-widget demo</title>
     {% else %}
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <title>Boostrap 2 django-datetime-widget demo</title>
     {% endif %}
 
-    {% if form %}
-    {{ form.media }}
-    {% endif %}
 </head>
 <body>
 <a href="http://bit.ly/django-datetime-widget"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
@@ -89,5 +81,19 @@ or I will be grateful if <form style="display:inline;" action="https://www.paypa
             <p><a href="http://bit.ly/django-datetime-widget"> django-datetime-widget </a> is developed by <a href="http://bit.ly/asaglimbeni">Alfredo Saglimbeni</a> based on <a href="https://github.com/smalot/bootstrap-datetimepicker">bootstrap-datetimepicker</a> </p>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "48952996-13d3-49f3-9854-e6438041a4b3", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+
+{% if form %}
+ {{ form.media }}
+{% endif %}
+
 </body>
 </html>
