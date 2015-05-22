@@ -11,6 +11,8 @@ from django.utils.formats import get_format, get_language
 from django.utils.safestring import mark_safe
 from django.utils.six import string_types
 
+from time import strftime
+
 try:
     from django.forms.widgets import to_current_timezone
 except ImportError:
@@ -331,3 +333,43 @@ class TimeWidget(PickerWidgetMixin, TimeInput):
 
         super(TimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
 
+class SplitDateTimeWidget(MultiWidget):
+
+    def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
+        if options is None:
+            options = {}
+
+        date_options = {}
+        time_options = {}
+        # Set the default options to show only the datepicker object
+        date_options['startView'] = options.get('startView', 2)
+        date_options['minView'] = options.get('minView', 2)
+        date_options['format'] = options.get('format', 'dd/mm/yyyy')
+
+        time_options['startView'] = options.get('startView', 1)
+        time_options['minView'] = options.get('minView', 0)
+        time_options['maxView'] = options.get('maxView', 1)
+        time_options['format'] = options.get('format', 'hh:ii')
+
+        widgets = (DateWidget(attrs=attrs, options=date_options, usel10n=usel10n, bootstrap_version=bootstrap_version), 
+            TimeWidget(attrs=attrs, options=time_options, usel10n=usel10n, bootstrap_version=bootstrap_version))
+
+        super(SplitDateTimeWidget, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            d = strftime("%Y-%m-%d", value.timetuple())
+            hour = strftime("%H", value.timetuple())
+            minute = strftime("%M", value.timetuple())
+            meridian = strftime("%p", value.timetuple())
+            return (d, hour+":"+minute, meridian)
+        else:
+            return (None, None, None)
+
+    def format_output(self, rendered_widgets):
+        """
+        Given a list of rendered widgets (as strings), it inserts an HTML
+        linebreak between them.
+        Returns a Unicode string representing the HTML for the whole lot.
+        """
+        return "Date: %s<br/>Time: %s" % (rendered_widgets[0], rendered_widgets[1])
