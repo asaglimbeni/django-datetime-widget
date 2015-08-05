@@ -136,7 +136,6 @@ quoted_options = set([
     'startView',
     'minView',
     'maxView',
-    'todayBtn',
     'language',
     'pickerPosition',
     'viewSelect',
@@ -152,6 +151,7 @@ quoted_bool_options = set([
     'todayHighlight',
     'showMeridian',
     'clearBtn',
+    'todayBtn',
     ])
 
 
