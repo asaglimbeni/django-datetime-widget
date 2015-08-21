@@ -22,7 +22,7 @@
 
 /*
  * Improvement by CuGBabyBeaR @ 2013-09-12
- * 
+ *
  * Make it work in bootstrap v3
  */
 
@@ -451,11 +451,11 @@
 				offset = this.element.offset();
 				left = offset.left;
 			}
-			
+
 			if(left+220 > document.body.clientWidth){
             			left = document.body.clientWidth-220;
           		}
-			
+
 			if (this.pickerPosition == 'top-left' || this.pickerPosition == 'top-right') {
 				top = offset.top - this.picker.outerHeight();
 			} else {
@@ -673,7 +673,7 @@
 				.find('th:eq(1)')
 				.text(year)
 				.end()
-				.find('span').removeClass('active');
+				.find('span.month').removeClass('active');
 			if (currentYear == year) {
 				months.eq(this.date.getUTCMonth()).addClass('active');
 			}
