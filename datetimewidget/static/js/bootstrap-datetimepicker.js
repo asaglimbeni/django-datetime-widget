@@ -208,6 +208,8 @@
 		this.setStartDate(options.startDate || this.element.data('date-startdate'));
 		this.setEndDate(options.endDate || this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled || this.element.data('date-days-of-week-disabled'));
+		this.startHour = (options.startHour || 0)
+		this.endHour = (options.endHour || 24)
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -605,7 +607,7 @@
 
 			html = [];
 			var txt = '', meridian = '', meridianOld = '';
-			for (var i = 0; i < 24; i++) {
+			for (var i = this.startHour; i < this.endHour; i++) {
 				var actual = UTCDate(year, month, dayMonth, i);
 				clsName = '';
 				// We want the previous hour for the startDate
@@ -625,7 +627,7 @@
 					meridianOld = meridian;
 					txt = (i % 12 ? i % 12 : 12);
 					html.push('<span class="hour' + clsName + ' hour_' + (i < 12 ? 'am' : 'pm') + '">' + txt + '</span>');
-					if (i == 23) {
+					if (i == this.endHour - 1) {
 						html.push('</fieldset>');
 					}
 				} else {
@@ -711,7 +713,13 @@
 				hour = d.getUTCHours();
 			switch (this.viewMode) {
 				case 0:
-					if (this.startDate !== -Infinity && year <= this.startDate.getUTCFullYear()
+					if (this.startHour) {
+						if (hour <= this.startHour) {
+						    this.picker.find('.prev').css({visibility: 'hidden'});
+						} else {
+						    this.picker.find('.prev').css({visibility: 'visible'});
+						}
+					} else if (this.startDate !== -Infinity && year <= this.startDate.getUTCFullYear()
 						&& month <= this.startDate.getUTCMonth()
 						&& day <= this.startDate.getUTCDate()
 						&& hour <= this.startDate.getUTCHours()) {
@@ -719,7 +727,13 @@
 					} else {
 						this.picker.find('.prev').css({visibility: 'visible'});
 					}
-					if (this.endDate !== Infinity && year >= this.endDate.getUTCFullYear()
+					if (this.endHour < 24) {
+						if (hour >= this.endHour-1) {
+						    this.picker.find('.next').css({visibility: 'hidden'});
+						} else {
+						    this.picker.find('.next').css({visibility: 'visible'});
+						}
+					} else if (this.endDate !== Infinity && year >= this.endDate.getUTCFullYear()
 						&& month >= this.endDate.getUTCMonth()
 						&& day >= this.endDate.getUTCDate()
 						&& hour >= this.endDate.getUTCHours()) {
