@@ -76,6 +76,7 @@ dateConversiontoPython = {
     'HH': '%I',
     'dd': '%d',
     'mm': '%m',
+    'MM': '%B',
     'yy': '%y',
     'yyyy': '%Y',
 }
@@ -86,6 +87,7 @@ toPython_re = re.compile(r'\b(' + '|'.join(dateConversiontoPython.keys()) + r')\
 dateConversiontoJavascript = {
     '%M': 'ii',
     '%m': 'mm',
+    '%B': 'MM',
     '%I': 'HH',
     '%H': 'hh',
     '%d': 'dd',
