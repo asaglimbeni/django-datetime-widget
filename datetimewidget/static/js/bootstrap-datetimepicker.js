@@ -540,6 +540,13 @@
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = (new UTCDate(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate())).valueOf(),
 				today = new Date();
+			if (hours < this.startHour) {
+				hours = this.startHour;
+				this.viewDate = UTCDate(year, month, dayMonth, hours, 0, 0);
+			} else if (hours >= this.endHour) {
+				hours = this.endHour - 1;
+				this.viewDate = UTCDate(year, month, dayMonth, hours, 0, 0);
+			}
 			this.picker.find('.datetimepicker-days thead th:eq(1)')
 				.text(dates[this.language].months[month] + ' ' + year);
 			if (this.formatViewType == "time") {
