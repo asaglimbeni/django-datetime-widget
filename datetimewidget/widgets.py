@@ -196,7 +196,7 @@ class PickerWidgetMixin(object):
             self.is_localized = True
 
             # Get format from django format system
-            self.format = get_format(self.format_name)[0]
+            self.format = self.options['format'] or get_format(self.format_name)[0]
 
             # Convert Python format specifier to Javascript format specifier
             self.options['format'] = toJavascript_re.sub(
