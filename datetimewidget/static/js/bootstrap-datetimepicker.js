@@ -122,7 +122,7 @@
 
 		this.startViewMode = 2;
 		if ('startView' in options) {
-			this.startViewMode = options.startView;
+			this.startViewMode = parseInt(options.startView);
 		} else if ('startView' in this.element.data()) {
 			this.startViewMode = this.element.data('start-view');
 		}
