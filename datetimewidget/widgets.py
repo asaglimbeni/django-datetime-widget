@@ -6,8 +6,14 @@ import re
 import uuid
 
 from django.forms import forms, widgets
-from django.forms.widgets import MultiWidget, DateTimeInput, DateInput, TimeInput
+from django.forms.widgets import (
+    Select, MultiWidget, DateTimeInput, DateInput, 
+    TimeInput)
+from django.utils.translation import ugettext as _
+from django.contrib.admin.widgets import AdminDateWidget
 from django.utils.formats import get_format, get_language
+from django.template.loader import render_to_string
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.six import string_types
 
@@ -338,21 +344,26 @@ class SplitDateTimeWidget(MultiWidget):
     def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
         if options is None:
             options = {}
-
+        
         date_options = {}
         time_options = {}
         # Set the default options to show only the datepicker object
-        date_options['startView'] = options.get('startView', 2)
-        date_options['minView'] = options.get('minView', 2)
-        date_options['format'] = options.get('format', 'dd/mm/yyyy')
+        date_options['startView'] = options.pop('date_startView', 2)
+        date_options['minView'] = options.pop('date_minView', 2)
+        date_options['format'] = options.pop('date_format', 'yyyy-mm-dd')
 
-        time_options['startView'] = options.get('startView', 1)
-        time_options['minView'] = options.get('minView', 0)
-        time_options['maxView'] = options.get('maxView', 1)
-        time_options['format'] = options.get('format', 'hh:ii')
+        time_options['startView'] = options.pop('time_startView', 1)
+        time_options['minView'] = options.pop('time_minView', 0)
+        time_options['maxView'] = options.pop('time_maxView', 1)
+        time_options['format'] = options.pop('time_format', 'hh:ii')
 
-        widgets = (DateWidget(attrs=attrs, options=date_options, usel10n=usel10n, bootstrap_version=bootstrap_version), 
-            TimeWidget(attrs=attrs, options=time_options, usel10n=usel10n, bootstrap_version=bootstrap_version))
+        date_copy = options.copy()
+        date_copy.update(date_options)
+        time_copy = options.copy()
+        time_copy.update(time_options)
+
+        widgets = (DateWidget(attrs=attrs, options=date_copy, usel10n=usel10n, bootstrap_version=bootstrap_version), 
+            TimeWidget(attrs=attrs, options=time_copy, usel10n=usel10n, bootstrap_version=bootstrap_version))
 
         super(SplitDateTimeWidget, self).__init__(widgets, attrs)
 
@@ -373,3 +384,33 @@ class SplitDateTimeWidget(MultiWidget):
         Returns a Unicode string representing the HTML for the whole lot.
         """
         return "Date: %s<br/>Time: %s" % (rendered_widgets[0], rendered_widgets[1])
+
+class NewAdminSplitDateTimeWidget(MultiWidget):
+    def __init__(self, attrs=None, date_format=None, time_format=None):
+        number_attrs = {}
+        hours_attrs = {'min': '1', 'max': '12'}
+        min_attrs = {'min': '0', 'max': '59', 'step': 15}
+        if attrs:
+            number_attrs = dict(number_attrs, **attrs)
+        widgets = (AdminDateWidget,
+                   NumberInput(attrs=dict(number_attrs,**hours_attrs)), 
+                   NumberInput(attrs=dict(number_attrs,**min_attrs)), 
+                   Select(attrs=attrs, choices=[('AM','AM'),('PM','PM')]))
+        super(NewAdminSplitDateTimeWidget, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            value = to_current_timezone(value)
+            d = strftime("%Y-%m-%d", value.timetuple())
+            hour = strftime("%I", value.timetuple())
+            minute = strftime("%M", value.timetuple())
+            meridian = strftime("%p", value.timetuple())
+            return (d, hour, minute, meridian)
+        else:
+            return (None, None, None, None)
+
+    def format_output(self, rendered_widgets):
+        return format_html('<p class="datetime">{} {}<br />{} {} {} {}</p>',
+                           _('Date:'), rendered_widgets[0],
+                           _('Time:'), rendered_widgets[1],
+                           rendered_widgets[2], rendered_widgets[3])
