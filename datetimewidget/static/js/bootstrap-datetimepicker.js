@@ -375,7 +375,10 @@
 		},
 
 		setValue: function () {
-            if (this.minuteStep > 30) {
+            if (this.minuteStep == 1440) {
+                this.date.setUTCHours(0)
+                this.date.setUTCMinutes(0)
+            } else if (this.minuteStep > 30) {
                 this.date.setUTCMinutes(0)
             }
 			var formatted = this.getFormattedDate();
