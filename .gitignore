@@ -1,3 +1,4 @@
 .idea
 *.pyc
+*.*~
 django_datetime_widget.egg-info

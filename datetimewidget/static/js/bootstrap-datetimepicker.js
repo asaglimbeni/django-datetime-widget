@@ -375,6 +375,9 @@
 		},
 
 		setValue: function () {
+            if (this.minuteStep > 30) {
+                this.date.setUTCMinutes(0)
+            }
 			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component) {
@@ -614,7 +617,11 @@
 
 			html = [];
 			var txt = '', meridian = '', meridianOld = '';
-			for (var i = this.startHour; i < this.endHour; i++) {
+            var incr = 1;
+            if (this.minuteStep > 60) {
+                incr = this.minuteStep / 60;
+            }
+			for (var i = this.startHour; i < this.endHour; i+=incr) {
 				var actual = UTCDate(year, month, dayMonth, i);
 				clsName = '';
 				// We want the previous hour for the startDate
