@@ -109,8 +109,8 @@ Basic Configuration
     <head>
     ....
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+        <script src='{% static "js/bootstrap.js" %}'></script>
+        <link rel="stylesheet" type="text/css" href='{% static "css/bootstrap.css" %}'>
         {{ form.media }}
 
     ....
