@@ -208,8 +208,20 @@
 		this.setStartDate(options.startDate || this.element.data('date-startdate'));
 		this.setEndDate(options.endDate || this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled || this.element.data('date-days-of-week-disabled'));
-		this.startHour = (options.startHour || 0)
-		this.endHour = (options.endHour || 24)
+		this.sunStartHour = (options.sunStartHour || 0)
+		this.sunEndHour = (options.sunEndHour || 24)
+		this.monStartHour = (options.monStartHour || 0)
+		this.monEndHour = (options.monEndHour || 24)
+		this.tueStartHour = (options.tueStartHour || 0)
+		this.tueEndHour = (options.tueEndHour || 24)
+		this.wedStartHour = (options.wedStartHour || 0)
+		this.wedEndHour = (options.wedEndHour || 24)
+		this.thuStartHour = (options.thuStartHour || 0)
+		this.thuEndHour = (options.thuEndHour || 24)
+		this.friStartHour = (options.friStartHour || 0)
+		this.friEndHour = (options.friEndHour || 24)
+		this.satStartHour = (options.satStartHour || 0)
+		this.satEndHour = (options.satEndHour || 24)
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -624,10 +636,34 @@
             if (this.minuteStep > 60) {
                 incr = this.minuteStep / 60;
             }
-			for (var i = this.startHour; i < this.endHour; i+=incr) {
-				var actual = UTCDate(year, month, dayMonth, i);
+				var actual = UTCDate(year, month, dayMonth);
+                                var dayOfWeek = actual.getUTCDay()
+                                if (dayOfWeek == 0) {
+                                    myStartHour = this.sunStartHour;
+                                    myEndHour = this.sunEndHour;
+                                } else if (dayOfWeek == 1) {
+                                    myStartHour = this.monStartHour;
+                                    myEndHour = this.monEndHour;
+                                } else if (dayOfWeek == 2) {
+                                    myStartHour = this.tueStartHour;
+                                    myEndHour = this.tueEndHour;
+                                } else if (dayOfWeek == 3) {
+                                    myStartHour = this.wedStartHour;
+                                    myEndHour = this.wedEndHour;
+                                } else if (dayOfWeek == 4) {
+                                    myStartHour = this.thuStartHour;
+                                    myEndHour = this.thuEndHour;
+                                } else if (dayOfWeek == 5) {
+                                    myStartHour = this.friStartHour;
+                                    myEndHour = this.friEndHour;
+                                } else {
+                                    myStartHour = this.satStartHour;
+                                    myEndHour = this.satEndHour;
+                                }
+			for (var i = myStartHour; i < myEndHour; i+=incr) {
 				clsName = '';
 				// We want the previous hour for the startDate
+				var actual = UTCDate(year, month, dayMonth, i);
 				if ((actual.valueOf() + 3600000) <= this.startDate || actual.valueOf() > this.endDate) {
 					clsName += ' disabled';
 				} else if (hours == i) {
