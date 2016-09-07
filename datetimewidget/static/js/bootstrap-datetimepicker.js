@@ -558,11 +558,34 @@
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = (new UTCDate(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate())).valueOf(),
 				today = new Date();
-			if (hours < this.startHour) {
-				hours = this.startHour;
+                                var dayOfWeek = d.getUTCDay()
+                                if (dayOfWeek == 0) {
+                                    myStartHour = this.sunStartHour;
+                                    myEndHour = this.sunEndHour;
+                                } else if (dayOfWeek == 1) {
+                                    myStartHour = this.monStartHour;
+                                    myEndHour = this.monEndHour;
+                                } else if (dayOfWeek == 2) {
+                                    myStartHour = this.tueStartHour;
+                                    myEndHour = this.tueEndHour;
+                                } else if (dayOfWeek == 3) {
+                                    myStartHour = this.wedStartHour;
+                                    myEndHour = this.wedEndHour;
+                                } else if (dayOfWeek == 4) {
+                                    myStartHour = this.thuStartHour;
+                                    myEndHour = this.thuEndHour;
+                                } else if (dayOfWeek == 5) {
+                                    myStartHour = this.friStartHour;
+                                    myEndHour = this.friEndHour;
+                                } else {
+                                    myStartHour = this.satStartHour;
+                                    myEndHour = this.satEndHour;
+                                }
+			if (hours < myStartHour) {
+				hours = myStartHour
 				this.viewDate = UTCDate(year, month, dayMonth, hours, 0, 0);
-			} else if (hours >= this.endHour) {
-				hours = this.endHour - 1;
+			} else if (hours >= myEndHour) {
+				hours = myEndHour - 1;
 				this.viewDate = UTCDate(year, month, dayMonth, hours, 0, 0);
 			}
 			this.picker.find('.datetimepicker-days thead th:eq(1)')
