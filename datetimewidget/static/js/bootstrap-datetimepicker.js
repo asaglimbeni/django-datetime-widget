@@ -433,7 +433,7 @@
 		setDaysOfWeekDisabled: function (daysOfWeekDisabled) {
 			this.daysOfWeekDisabled = daysOfWeekDisabled || [];
 			if (!$.isArray(this.daysOfWeekDisabled)) {
-				this.daysOfWeekDisabled = this.daysOfWeekDisabled.split(/,\s*/);
+				this.daysOfWeekDisabled = this.daysOfWeekDisabled.split('');
 			}
 			this.daysOfWeekDisabled = $.map(this.daysOfWeekDisabled, function (d) {
 				return parseInt(d, 10);
@@ -638,11 +638,11 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (prevMonth.valueOf() == currentDate) {
+			        if ($.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
+					clsName += ' disabled';
+				} else if (prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
-				}
-				if ((prevMonth.valueOf() + 86400000) <= this.startDate || prevMonth.valueOf() > this.endDate ||
-					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
+				} else if ((prevMonth.valueOf() + 86400000) <= this.startDate || prevMonth.valueOf() > this.endDate) {
 					clsName += ' disabled';
 				}
 				html.push('<td class="day' + clsName + '">' + prevMonth.getUTCDate() + '</td>');
@@ -687,7 +687,8 @@
 				clsName = '';
 				// We want the previous hour for the startDate
 				var actual = UTCDate(year, month, dayMonth, i);
-				if ((actual.valueOf() + 3600000) <= this.startDate || actual.valueOf() > this.endDate) {
+				if ((actual.valueOf() + 3600000) <= this.startDate || actual.valueOf() > this.endDate ||
+					$.inArray(actual.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 					clsName += ' disabled';
 				} else if (hours == i) {
 					clsName += ' active';
