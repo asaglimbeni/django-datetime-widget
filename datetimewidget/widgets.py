@@ -221,9 +221,9 @@ class PickerWidgetMixin(object):
 
     def _media(self):
         if self.bootstrap_version == 3:
-            init_script = "js/datetime-widget-init.js"
+            init_script = "js/datetimewidget-init.js"
         else:
-            init_script = "js/datetime-widget-init-b2.js"
+            init_script = "js/datetimewidget-init-b2.js"
 
         js = ["js/bootstrap-datetimepicker.js", init_script]
 
