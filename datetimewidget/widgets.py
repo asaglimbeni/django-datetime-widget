@@ -100,7 +100,7 @@ toJavascript_re = re.compile(r'(?<!\w)(' + '|'.join(dateConversiontoJavascript.k
 
 BOOTSTRAP_INPUT_TEMPLATE = {
     2: """
-       <div id="%(id)s"  class="controls input-append date">
+       <div id="%(id)s"  class="controls input-append date %(ddw_classes)s">
            %(rendered_widget)s
            %(clear_button)s
            <span class="add-on"><i class="icon-th"></i></span>
@@ -110,7 +110,7 @@ BOOTSTRAP_INPUT_TEMPLATE = {
        </script>
        """,
     3: """
-       <div id="%(id)s" class="input-group date">
+       <div id="%(id)s" class="input-group date %(ddw_classes)s">
            %(rendered_widget)s
            %(clear_button)s
            <span class="input-group-addon"><span class="glyphicon %(glyphicon)s"></span></span>
@@ -221,6 +221,12 @@ class PickerWidgetMixin(object):
 
     def render(self, name, value, attrs=None):
         final_attrs = self.build_attrs(attrs)
+
+        ddw_classes = []
+        if 'required' in final_attrs and 'readonly' in final_attrs:
+            final_attrs.pop('readonly')
+            ddw_classes.append('ddw-requirable-readonly')
+
         rendered_widget = super(PickerWidgetMixin, self).render(name, value, final_attrs)
 
         #if not set, autoclose have to be true.
@@ -245,13 +251,14 @@ class PickerWidgetMixin(object):
                     rendered_widget=rendered_widget,
                     clear_button=CLEAR_BTN_TEMPLATE[self.bootstrap_version] if clearBtn else "",
                     glyphicon=self.glyphicon,
-                    options=js_options
+                    options=js_options,
+                    ddw_classes=' '.join(ddw_classes),
                     )
         )
 
     def _media(self):
 
-        js = ["js/bootstrap-datetimepicker.js"]
+        js = ["js/bootstrap-datetimepicker.js", "js/django-datetime-widget.js"]
 
         language = self.options.get('language', 'en')
         if language != 'en':
