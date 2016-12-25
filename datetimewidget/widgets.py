@@ -1,7 +1,7 @@
 
 __author__ = 'Alfredo Saglimbeni'
 
-from datetime import datetime
+from datetime import date
 import re
 import uuid
 
@@ -132,7 +132,6 @@ quoted_options = set([
     'startView',
     'minView',
     'maxView',
-    'todayBtn',
     'language',
     'pickerPosition',
     'viewSelect',
@@ -145,6 +144,7 @@ quoted_options = set([
 # to traslate boolean object to javascript
 quoted_bool_options = set([
     'autoclose',
+    'todayBtn',
     'todayHighlight',
     'showMeridian',
     'clearBtn',
@@ -157,11 +157,14 @@ def quote(key, value):
     numbers so we type check the value before wrapping it in quotes.
     """
 
-    if key in quoted_options and isinstance(value, string_types):
+    if key in quoted_options and isinstance(value, (string_types, date)):
         return "'%s'" % value
 
-    if key in quoted_bool_options and isinstance(value, bool):
-        return {True:'true',False:'false'}[value]
+    if key in quoted_bool_options:
+        if isinstance(value, bool):
+            return {True:'true',False:'false'}[value]
+        else: # for backward compatibility only - bool options could be previously passed as strings
+            return "'%s'" % value
 
     return value
 
