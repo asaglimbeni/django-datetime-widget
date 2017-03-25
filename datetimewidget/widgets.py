@@ -106,7 +106,10 @@ BOOTSTRAP_INPUT_TEMPLATE = {
            <span class="add-on"><i class="icon-th"></i></span>
        </div>
        <script type="text/javascript">
-           $("#%(id)s").datetimepicker({%(options)s});
+           var DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
+           DOMReady(function(){
+               $("#%(id)s").datetimepicker({%(options)s});
+           });
        </script>
        """,
     3: """
@@ -116,7 +119,10 @@ BOOTSTRAP_INPUT_TEMPLATE = {
            <span class="input-group-addon"><span class="glyphicon %(glyphicon)s"></span></span>
        </div>
        <script type="text/javascript">
-           $("#%(id)s").datetimepicker({%(options)s}).find('input').addClass("form-control");
+           var DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
+           DOMReady(function(){
+               $("#%(id)s").datetimepicker({%(options)s}).find('input').addClass("form-control");
+           });
        </script>
        """
        }
