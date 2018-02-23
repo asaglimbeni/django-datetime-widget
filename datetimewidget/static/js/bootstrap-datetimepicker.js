@@ -790,30 +790,12 @@
 				hour = d.getUTCHours();
 			switch (this.viewMode) {
 				case 0:
-					if (this.startHour) {
-						if (hour <= this.startHour) {
-						    this.picker.find('.prev').css({visibility: 'hidden'});
-						} else {
-						    this.picker.find('.prev').css({visibility: 'visible'});
-						}
-					} else if (this.startDate !== -Infinity && year <= this.startDate.getUTCFullYear()
-						&& month <= this.startDate.getUTCMonth()
-						&& day <= this.startDate.getUTCDate()
-						&& hour <= this.startDate.getUTCHours()) {
+					if (hour <= myStartHour) {
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					} else {
 						this.picker.find('.prev').css({visibility: 'visible'});
 					}
-					if (this.endHour < 24) {
-						if (hour >= this.endHour-1) {
-						    this.picker.find('.next').css({visibility: 'hidden'});
-						} else {
-						    this.picker.find('.next').css({visibility: 'visible'});
-						}
-					} else if (this.endDate !== Infinity && year >= this.endDate.getUTCFullYear()
-						&& month >= this.endDate.getUTCMonth()
-						&& day >= this.endDate.getUTCDate()
-						&& hour >= this.endDate.getUTCHours()) {
+					if (hour >= myEndHour-1) {
 						this.picker.find('.next').css({visibility: 'hidden'});
 					} else {
 						this.picker.find('.next').css({visibility: 'visible'});
