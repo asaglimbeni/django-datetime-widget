@@ -224,7 +224,7 @@ class PickerWidgetMixin(object):
         super(PickerWidgetMixin, self).__init__(attrs, format=self.format)
 
     def render(self, name, value, attrs=None):
-        final_attrs = self.build_attrs(attrs)
+        final_attrs = self.build_attrs(self.attrs, attrs)
         rendered_widget = super(PickerWidgetMixin, self).render(name, value, final_attrs)
 
         #if not set, autoclose have to be true.
