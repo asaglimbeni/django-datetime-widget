@@ -219,7 +219,7 @@ class PickerWidgetMixin(object):
 
         super(PickerWidgetMixin, self).__init__(attrs, format=self.format)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, renderer=None, attrs=None):
         final_attrs = self.build_attrs(attrs)
         rendered_widget = super(PickerWidgetMixin, self).render(name, value, final_attrs)
 
@@ -251,15 +251,15 @@ class PickerWidgetMixin(object):
 
     def _media(self):
 
-        js = ["js/bootstrap-datetimepicker.js"]
+        js = ["datetimewidget/js/bootstrap-datetimepicker.js"]
 
         language = self.options.get('language', 'en')
         if language != 'en':
-            js.append("js/locales/bootstrap-datetimepicker.%s.js" % language)
+            js.append("datetimewidget/js/locales/bootstrap-datetimepicker.%s.js" % language)
 
         return widgets.Media(
             css={
-                'all': ('css/datetimepicker.css',)
+                'all': ('datetimewidget/css/datetimepicker.css',)
                 },
             js=js
             )
