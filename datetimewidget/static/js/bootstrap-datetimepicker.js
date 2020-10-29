@@ -208,6 +208,20 @@
 		this.setStartDate(options.startDate || this.element.data('date-startdate'));
 		this.setEndDate(options.endDate || this.element.data('date-enddate'));
 		this.setDaysOfWeekDisabled(options.daysOfWeekDisabled || this.element.data('date-days-of-week-disabled'));
+		this.sunStartHour = (options.sunStartHour || 0)
+		this.sunEndHour = (options.sunEndHour || 24)
+		this.monStartHour = (options.monStartHour || 0)
+		this.monEndHour = (options.monEndHour || 24)
+		this.tueStartHour = (options.tueStartHour || 0)
+		this.tueEndHour = (options.tueEndHour || 24)
+		this.wedStartHour = (options.wedStartHour || 0)
+		this.wedEndHour = (options.wedEndHour || 24)
+		this.thuStartHour = (options.thuStartHour || 0)
+		this.thuEndHour = (options.thuEndHour || 24)
+		this.friStartHour = (options.friStartHour || 0)
+		this.friEndHour = (options.friEndHour || 24)
+		this.satStartHour = (options.satStartHour || 0)
+		this.satEndHour = (options.satEndHour || 24)
 		this.fillDow();
 		this.fillMonths();
 		this.update();
@@ -373,6 +387,12 @@
 		},
 
 		setValue: function () {
+            if (this.minuteStep == 1440) {
+                this.date.setUTCHours(0)
+                this.date.setUTCMinutes(0)
+            } else if (this.minuteStep > 30) {
+                this.date.setUTCMinutes(0)
+            }
 			var formatted = this.getFormattedDate();
 			if (!this.isInput) {
 				if (this.component) {
@@ -413,7 +433,7 @@
 		setDaysOfWeekDisabled: function (daysOfWeekDisabled) {
 			this.daysOfWeekDisabled = daysOfWeekDisabled || [];
 			if (!$.isArray(this.daysOfWeekDisabled)) {
-				this.daysOfWeekDisabled = this.daysOfWeekDisabled.split(/,\s*/);
+				this.daysOfWeekDisabled = this.daysOfWeekDisabled.split('');
 			}
 			this.daysOfWeekDisabled = $.map(this.daysOfWeekDisabled, function (d) {
 				return parseInt(d, 10);
@@ -538,6 +558,36 @@
 				endMonth = this.endDate !== Infinity ? this.endDate.getUTCMonth() : Infinity,
 				currentDate = (new UTCDate(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate())).valueOf(),
 				today = new Date();
+                                var dayOfWeek = d.getUTCDay()
+                                if (dayOfWeek == 0) {
+                                    myStartHour = this.sunStartHour;
+                                    myEndHour = this.sunEndHour;
+                                } else if (dayOfWeek == 1) {
+                                    myStartHour = this.monStartHour;
+                                    myEndHour = this.monEndHour;
+                                } else if (dayOfWeek == 2) {
+                                    myStartHour = this.tueStartHour;
+                                    myEndHour = this.tueEndHour;
+                                } else if (dayOfWeek == 3) {
+                                    myStartHour = this.wedStartHour;
+                                    myEndHour = this.wedEndHour;
+                                } else if (dayOfWeek == 4) {
+                                    myStartHour = this.thuStartHour;
+                                    myEndHour = this.thuEndHour;
+                                } else if (dayOfWeek == 5) {
+                                    myStartHour = this.friStartHour;
+                                    myEndHour = this.friEndHour;
+                                } else {
+                                    myStartHour = this.satStartHour;
+                                    myEndHour = this.satEndHour;
+                                }
+			if (hours < myStartHour) {
+				hours = myStartHour
+				this.viewDate = UTCDate(year, month, dayMonth, hours, 0, 0);
+			} else if (hours >= myEndHour) {
+				hours = myEndHour - 1;
+				this.viewDate = UTCDate(year, month, dayMonth, hours, 0, 0);
+			}
 			this.picker.find('.datetimepicker-days thead th:eq(1)')
 				.text(dates[this.language].months[month] + ' ' + year);
 			if (this.formatViewType == "time") {
@@ -588,11 +638,11 @@
 					prevMonth.getUTCDate() == today.getDate()) {
 					clsName += ' today';
 				}
-				if (prevMonth.valueOf() == currentDate) {
+			        if ($.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
+					clsName += ' disabled';
+				} else if (prevMonth.valueOf() == currentDate) {
 					clsName += ' active';
-				}
-				if ((prevMonth.valueOf() + 86400000) <= this.startDate || prevMonth.valueOf() > this.endDate ||
-					$.inArray(prevMonth.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
+				} else if ((prevMonth.valueOf() + 86400000) <= this.startDate || prevMonth.valueOf() > this.endDate) {
 					clsName += ' disabled';
 				}
 				html.push('<td class="day' + clsName + '">' + prevMonth.getUTCDate() + '</td>');
@@ -605,11 +655,40 @@
 
 			html = [];
 			var txt = '', meridian = '', meridianOld = '';
-			for (var i = 0; i < 24; i++) {
-				var actual = UTCDate(year, month, dayMonth, i);
+            var incr = 1;
+            if (this.minuteStep > 60) {
+                incr = this.minuteStep / 60;
+            }
+				var actual = UTCDate(year, month, dayMonth);
+                                var dayOfWeek = actual.getUTCDay()
+                                if (dayOfWeek == 0) {
+                                    myStartHour = this.sunStartHour;
+                                    myEndHour = this.sunEndHour;
+                                } else if (dayOfWeek == 1) {
+                                    myStartHour = this.monStartHour;
+                                    myEndHour = this.monEndHour;
+                                } else if (dayOfWeek == 2) {
+                                    myStartHour = this.tueStartHour;
+                                    myEndHour = this.tueEndHour;
+                                } else if (dayOfWeek == 3) {
+                                    myStartHour = this.wedStartHour;
+                                    myEndHour = this.wedEndHour;
+                                } else if (dayOfWeek == 4) {
+                                    myStartHour = this.thuStartHour;
+                                    myEndHour = this.thuEndHour;
+                                } else if (dayOfWeek == 5) {
+                                    myStartHour = this.friStartHour;
+                                    myEndHour = this.friEndHour;
+                                } else {
+                                    myStartHour = this.satStartHour;
+                                    myEndHour = this.satEndHour;
+                                }
+			for (var i = myStartHour; i < myEndHour; i+=incr) {
 				clsName = '';
 				// We want the previous hour for the startDate
-				if ((actual.valueOf() + 3600000) <= this.startDate || actual.valueOf() > this.endDate) {
+				var actual = UTCDate(year, month, dayMonth, i);
+				if ((actual.valueOf() + 3600000) <= this.startDate || actual.valueOf() > this.endDate ||
+					$.inArray(actual.getUTCDay(), this.daysOfWeekDisabled) !== -1) {
 					clsName += ' disabled';
 				} else if (hours == i) {
 					clsName += ' active';
@@ -625,7 +704,7 @@
 					meridianOld = meridian;
 					txt = (i % 12 ? i % 12 : 12);
 					html.push('<span class="hour' + clsName + ' hour_' + (i < 12 ? 'am' : 'pm') + '">' + txt + '</span>');
-					if (i == 23) {
+					if (i == this.endHour - 1) {
 						html.push('</fieldset>');
 					}
 				} else {
@@ -711,18 +790,12 @@
 				hour = d.getUTCHours();
 			switch (this.viewMode) {
 				case 0:
-					if (this.startDate !== -Infinity && year <= this.startDate.getUTCFullYear()
-						&& month <= this.startDate.getUTCMonth()
-						&& day <= this.startDate.getUTCDate()
-						&& hour <= this.startDate.getUTCHours()) {
+					if (hour <= myStartHour) {
 						this.picker.find('.prev').css({visibility: 'hidden'});
 					} else {
 						this.picker.find('.prev').css({visibility: 'visible'});
 					}
-					if (this.endDate !== Infinity && year >= this.endDate.getUTCFullYear()
-						&& month >= this.endDate.getUTCMonth()
-						&& day >= this.endDate.getUTCDate()
-						&& hour >= this.endDate.getUTCHours()) {
+					if (hour >= myEndHour-1) {
 						this.picker.find('.next').css({visibility: 'hidden'});
 					} else {
 						this.picker.find('.next').css({visibility: 'visible'});
